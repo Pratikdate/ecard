@@ -1,3 +1,4 @@
+import 'package:ecard/screens/subscreen/homeOntap/OnProcesstap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,7 +14,9 @@ class ProgressMenu extends StatelessWidget{
       height: 160.w,
       width: 140.w,
       child: InkWell(
-        onTap: (){},
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> const OnPrcessTap()));
+        },
         child: Card(
         color: Colors.white.withOpacity(0.1),
       ),

@@ -176,8 +176,9 @@ class ProfileScreen extends StatelessWidget {
                 title: "Logout",
                 onPressed: () async{
                   await FirebaseAuth.instance.signOut();
+                  Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginScreen(),));
 
-                  Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context)=>LoginScreen(),), (route) => false);
+
                 },
                 endIcon: false,
                 textColor: Colors.red,

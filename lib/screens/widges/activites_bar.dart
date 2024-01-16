@@ -1,3 +1,4 @@
+import "package:ecard/screens/subscreen/homeOntap/onActivitytap.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
@@ -5,68 +6,70 @@ import "package:flutter_screenutil/flutter_screenutil.dart";
 import "../../core/res/font-handler.dart";
 
 class ActivitesBar extends StatelessWidget {
-  const ActivitesBar({super.key, required this.FriendName, required this.FriendLavel,required this.ImgSrc});
+  const ActivitesBar(
+      {super.key,
+      required this.FriendName,
+      this.FriendLavel = "",
+      required this.ImgSrc,
+      this.isChatWidge = false
+      });
+
   final String FriendName;
   final String FriendLavel;
   final String ImgSrc;
-
+  final bool isChatWidge;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80.sp,
-
-
-      child: InkWell(
-        onTap: (){},
-    child: Card(
-        color: Colors.white.withOpacity(0.1),
-      //color: Colors.black,
-        child: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10.sp),
-              child: SizedBox(
-                width: 50.sp,
-                height: 50.sp,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100.sp),
-                  child: Image(
-                    image: AssetImage(ImgSrc),
-                    fit: BoxFit.fill,
+        height: 80.sp,
+        child: InkWell(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> const OnActivityTap()));
+          },
+          child: Card(
+            color: (isChatWidge) ? Colors.black : Colors.white.withOpacity(0.1),
+            //color: Colors.black,
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(10.sp),
+                  child: SizedBox(
+                    width: 50.sp,
+                    height: 50.sp,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100.sp),
+                      child: Image(
+                        image: AssetImage(ImgSrc),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.all(10.sp),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FontHandler(
+                          FriendName,
+                          color: Colors.white,
+                          textAlign: TextAlign.left,
+                          fontweight: FontWeight.normal,
+                          fontsize: 20.sp,
+                        ),
+                        FontHandler(
+                          FriendLavel,
+                          color: Colors.green,
+                          textAlign: TextAlign.left,
+                          fontweight: FontWeight.normal,
+                          fontsize: 16.sp,
+                        ),
+                      ]),
+                ),
+              ],
             ),
-            Padding(
-              padding: EdgeInsets.all(10.sp),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FontHandler(
-                    FriendName,
-                    color: Colors.white,
-                    textAlign: TextAlign.left,
-                    fontweight: FontWeight.normal,
-                    fontsize: 20.sp,
-                  ),
-                  FontHandler(
-                  FriendLavel,
-                  color: Colors.green,
-                  textAlign: TextAlign.left,
-                  fontweight: FontWeight.normal,
-                  fontsize: 16.sp,
-                  ),
-                  ]
-
-                  ),
-                  ),
-                ],
-              ),
-            ),
-      )
-
-        );
-
+          ),
+        ));
   }
 }

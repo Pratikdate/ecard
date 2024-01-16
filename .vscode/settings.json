@@ -1,3 +1,5 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "DockerRun.DisableDockerrc": true,
+    "DockerRun.DisableAutoGenerateConfig": true
 }

@@ -46,6 +46,7 @@ dependencies:
   firebase_core: ^2.24.2
   firebase_auth: ^4.16.0
   persistent_bottom_nav_bar: ^5.0.2
+  cloud_firestore: ^4.14.0
 
 
 

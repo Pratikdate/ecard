@@ -43,8 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             behavior: SnackBarBehavior.floating,)
       );
 
-      Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context)=>DashboardScreen(),), (route) => false);
-
+      Navigator.push(context,MaterialPageRoute(builder: (context)=>DashboardScreen(),));
 
     } on FirebaseAuthException catch(e){
       if(e.code=="user-not-found"){

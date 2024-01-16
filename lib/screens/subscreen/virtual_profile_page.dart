@@ -21,24 +21,22 @@ class VirtualProfileScreen extends StatelessWidget {
               children: [
                 Stack(children: [
                   SizedBox(
-
                     height: 280.h,
                     width: 460.w,
                     child: Container(
-
-                        clipBehavior: Clip.hardEdge,
-
-                        decoration: BoxDecoration(
-                          color: Colors.amber,
-                          borderRadius: BorderRadius.circular(20),
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: SizedBox(
+                        height: 20.h,
+                        width: 20.w,
+                        child: Image.asset(
+                          "assets_/img2.jpg",
                         ),
-                        child: SizedBox(
-                          height: 20.h,
-                          width: 20.w,
-                          child: Image.asset(
-                            "assets_/img2.jpg",
-                          ),
-                        )),
+                      ),
+                    ),
                   ),
                   Positioned(
                     bottom: 0,
@@ -62,30 +60,43 @@ class VirtualProfileScreen extends StatelessWidget {
                 ),
                 Stack(children: [
                   SizedBox(
-
                       height: 300.h,
                       width: 460.w,
                       child: Card(
                         elevation: 6.0,
                         color: Colors.amber,
                         clipBehavior: Clip.hardEdge,
-
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Column(
-
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            FontHandler("John Grandson", color: Colors.black,textAlign: TextAlign.center,fontsize: 40.sp,fontweight: FontWeight.bold,),
-                            FontHandler("Real Estate Broker", color: Colors.black,textAlign: TextAlign.center,fontsize: 25.sp,fontweight: FontWeight.bold),
+                            FontHandler(
+                              "John Grandson",
+                              color: Colors.black,
+                              textAlign: TextAlign.center,
+                              fontsize: 40.sp,
+                              fontweight: FontWeight.bold,
+                            ),
+                            FontHandler("Real Estate Broker",
+                                color: Colors.black,
+                                textAlign: TextAlign.center,
+                                fontsize: 25.sp,
+                                fontweight: FontWeight.bold),
                             Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: 10.w ,vertical: 10.h),
-                              child: Text("This package is also a submission to Flutter Create contest. The basic rule of this contest is to measure the total Dart file size less or equal 5KB.After unzipping the compressed file, run following command to update dependencies",maxLines: 6,softWrap: true,style:TextStyle(fontSize: 16.0, color: Colors.black) ,),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w, vertical: 10.h),
+                              child: Text(
+                                "This package is also a submission to Flutter Create contest. The basic rule of this contest is to measure the total Dart file size less or equal 5KB.After unzipping the compressed file, run following command to update dependencies",
+                                maxLines: 6,
+                                softWrap: true,
+                                style: TextStyle(
+                                    fontSize: 16.0, color: Colors.black),
+                              ),
                             )
-                            ],
+                          ],
                         ),
-
                       )),
                   Positioned(
                     bottom: 0,
@@ -115,9 +126,7 @@ class VirtualProfileScreen extends StatelessWidget {
                   height: 16.h,
                 ),
                 SeeMore(
-                    icon: IconHandler.earth,
-                    text: "Website",
-                    onPressed: () {}),
+                    icon: IconHandler.earth, text: "Website", onPressed: () {}),
                 SizedBox(
                   height: 16.h,
                 ),
