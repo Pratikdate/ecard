@@ -1,4 +1,6 @@
+import 'package:ecard/core/res/color_handler.dart';
 import 'package:ecard/core/res/font-handler.dart';
+import 'package:ecard/core/res/icon_handler.dart';
 import 'package:ecard/screens/widges/activites_bar.dart';
 import 'package:ecard/screens/widges/progressMenu.dart';
 import 'package:ecard/screens/widges/searchbar.dart';
@@ -10,34 +12,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 60,
         leadingWidth: MediaQuery.of(context).size.width,
-        backgroundColor: Colors.black12,
-        leading:
-        Row(
+        backgroundColor: ColorHandler.bgColor,
+        leading: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: SearchBarWidge(),
             ),
           ],
         ),
-    ),
+      ),
 
-
-
-
-      backgroundColor: Colors.black,
-
-
+      backgroundColor: ColorHandler.bgColor,
 
       //body part
       body: SingleChildScrollView(
@@ -49,12 +42,11 @@ class HomeScreen extends StatelessWidget {
             //Top name of User
             Column(
               children: [
-
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: FontHandler(
                     "Pratik Date",
-                    color: Colors.white,
+                    color: ColorHandler.normalFont,
                     textAlign: TextAlign.left,
                     fontsize: 26,
                     fontweight: FontWeight.bold,
@@ -69,11 +61,10 @@ class HomeScreen extends StatelessWidget {
 
             //Progress bar
             Container(
-              
               height: 80.h,
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Card(
-                color:Colors.white.withOpacity(0.1),
+                color: ColorHandler.normalFont.withOpacity(0.1),
                 child: Row(
                   children: [
                     Padding(
@@ -90,36 +81,35 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     Padding(
-                      padding: EdgeInsets.only(left: 8,top: 8),
+                      padding: EdgeInsets.only(left: 8, top: 8),
                       child: Column(
-                        
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           FontHandler(
                             "Level 16",
-                            color: Colors.white,
+                            color: ColorHandler.normalFont,
                             textAlign: TextAlign.left,
                             fontweight: FontWeight.normal,
                             fontsize: 20.h,
                           ),
-
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 4),
                             child: SizedBox(
                               width: 240.w,
                               child: FAProgressBar(
-                                currentValue: 80.sp,
-                                size: 8.sp,
-                                backgroundColor: Colors.white,
-                                progressGradient: LinearGradient(
-                                    begin: Alignment.topRight,
-                                    end: Alignment.bottomLeft,
-                                    colors: [Colors.purple.shade300,Colors.deepPurpleAccent.withAlpha(100)])),
-                              ),
+                                  currentValue: 80.sp,
+                                  size: 8.sp,
+                                  backgroundColor: ColorHandler.normalFont,
+                                  progressGradient: LinearGradient(
+                                      begin: Alignment.topRight,
+                                      end: Alignment.bottomLeft,
+                                      colors: [
+                                        Colors.purple.shade300,
+                                        Colors.deepPurpleAccent.withAlpha(100)
+                                      ])),
                             ),
-
+                          ),
                         ],
                       ),
                     ),
@@ -140,7 +130,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   FontHandler(
                     "Progress",
-                    color: Colors.white,
+                    color: ColorHandler.normalFont,
                     textAlign: TextAlign.start,
                     fontsize: 22.sp,
                     fontweight: FontWeight.normal,
@@ -149,9 +139,10 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        ProgressMenu(),
-                        ProgressMenu(),
-                        ProgressMenu(),
+                        ProgressMenu(progress: "260",progressicon:IconHandler.view ,progressiconcolor: ColorHandler.violate ,progressname: "Views",aboutprogress: "Maximum Views",),
+                        ProgressMenu(progress: "27",progressicon:IconHandler.like ,progressiconcolor: ColorHandler.yellow,progressname: "Likes",aboutprogress: "Maximum Likes",),
+                        ProgressMenu(progress: "8",progressicon:IconHandler.comment ,progressiconcolor:ColorHandler.pink ,progressname: "Comments",aboutprogress: "Maximum Comments",),
+
                       ],
                     ),
                   ),
@@ -160,34 +151,49 @@ class HomeScreen extends StatelessWidget {
             ),
 
             Container(
-              margin: EdgeInsets.only(left: 20.w,right: 20.w,bottom: 16.w),
+              margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 16.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FontHandler(
                     "Friends Activity",
-                    color: Colors.white,
+                    color: ColorHandler.normalFont,
                     textAlign: TextAlign.start,
                     fontsize: 22.sp,
                     fontweight: FontWeight.normal,
                   ),
-                  Container(
-                    height: 340.h,
-                    child: const FadedEdges(
+                  FadedEdges(
+                    child: SizedBox(
+                      height: 340.h,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: Column(
                           children: [
                             ActivitesBar(
-                                FriendName: "Gaspard", FriendLavel: "Lv2", ImgSrc: 'assets_/img1.jpg',),
+                              FriendName: "Gaspard",
+                              FriendLavel: "Lv2",
+                              ImgSrc: 'assets_/img1.jpg',
+                            ),
                             ActivitesBar(
-                                FriendName: "Rapier", FriendLavel: "Lv3", ImgSrc: 'assets_/img1.jpg',),
+                              FriendName: "Rapier",
+                              FriendLavel: "Lv3",
+                              ImgSrc: 'assets_/img1.jpg',
+                            ),
                             ActivitesBar(
-                                FriendName: "Bhavika", FriendLavel: "Lv4", ImgSrc: 'assets_/img3.jpg',),
+                              FriendName: "Bhavika",
+                              FriendLavel: "Lv4",
+                              ImgSrc: 'assets_/img3.jpg',
+                            ),
                             ActivitesBar(
-                                FriendName: "Dev", FriendLavel: "Lv3", ImgSrc: 'assets_/img4.jpg',),
+                              FriendName: "Dev",
+                              FriendLavel: "Lv3",
+                              ImgSrc: 'assets_/img4.jpg',
+                            ),
                             ActivitesBar(
-                                FriendName: "Arjun", FriendLavel: "Lv1", ImgSrc: 'assets_/img5.jpg',),
+                              FriendName: "Arjun",
+                              FriendLavel: "Lv1",
+                              ImgSrc: 'assets_/img5.jpg',
+                            ),
                           ],
                         ),
                       ),
@@ -223,10 +229,10 @@ class FadedEdges extends StatelessWidget {
         shaderCallback: (Rect rect) => LinearGradient(
                 colors: colors ??
                     [
-                      Colors.white.withOpacity(0.60),
+                      ColorHandler.normalFont.withOpacity(0.60),
                       Colors.transparent,
                       Colors.transparent,
-                      Colors.white.withOpacity(0.60)
+                      ColorHandler.normalFont.withOpacity(0.60)
                     ],
                 stops: stops ?? const [0.1, 0.25, 0.85, 1.0],
                 begin:

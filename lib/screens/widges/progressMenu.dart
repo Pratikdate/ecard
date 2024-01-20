@@ -1,11 +1,22 @@
+import 'package:ecard/core/res/color_handler.dart';
+import 'package:ecard/screens/chart_screens/activty_chart.dart';
 import 'package:ecard/screens/subscreen/homeOntap/OnProcesstap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/res/font-handler.dart';
+import '../../core/res/icon_handler.dart';
 
-class ProgressMenu extends StatelessWidget{
-  const ProgressMenu({super.key});
+class ProgressMenu extends StatelessWidget {
+
+
+  const ProgressMenu({super.key,this.progress, this.progressname, this.progressicon,this.progressiconcolor, this.aboutprogress, });
+  final progressname;
+  final progressicon;
+  final progressiconcolor;
+  final progress;
+  final aboutprogress;
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +25,53 @@ class ProgressMenu extends StatelessWidget{
       height: 160.w,
       width: 140.w,
       child: InkWell(
-        onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> const OnPrcessTap()));
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ActivityChart()));
         },
-        child: Card(
-        color: Colors.white.withOpacity(0.1),
-      ),
+        child: Stack(
+          children:[
+            SizedBox(
+              width: 140.h,
+              height: 140.h,
+              child: Card(
+                color:ColorHandler.normalFont.withOpacity(0.1),
+                child:  Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FontHandler(progress,color: ColorHandler.normalFont, textAlign:TextAlign.center,fontweight: FontWeight.bold,fontsize: 20,),
+                    FontHandler(aboutprogress,color: ColorHandler.normalFont.withOpacity(0.6), textAlign:TextAlign.center,fontsize: 12,),
+                  ],
+                ),
+
+              ),
+            ),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Container(
+                width: 26.w,
+                height: 26.h,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100.sp),
+                    color: progressiconcolor),
+                child:  Icon(
+                  progressicon,
+                  color: ColorHandler.normalFont.withOpacity(1),
+                  size: 18,
+                ),
+              ),
+            ),
+
+
+            Positioned(
+              top: 10,
+              left: 20,
+              child: FontHandler(progressname, color: ColorHandler.normalFont, textAlign: TextAlign.center,fontsize: 16,fontweight: FontWeight.bold,),
+            ),
+          ]
         ),
+      ),
     );
   }
-
 }
-
-

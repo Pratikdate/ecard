@@ -17,6 +17,12 @@ class IconHandler {
 
   //home page
   static const arrow_down=Feather.arrow_down;
+  static const view=Ionicons.eye;
+  static const like=AntDesign.like1;
+  static const comment= FontAwesome.comments;
+
+
+
 
   //Profile page
   static const IconData home= FontAwesome.globe;
@@ -40,6 +46,8 @@ class IconHandler {
   static const IconData whatsapp=MaterialCommunityIcons.whatsapp;
   static const IconData earth=AntDesign.earth;
   static const IconData linkedin=MaterialCommunityIcons.linkedin;
+  static const IconData submit=EvilIcons.sc_telegram;
+
 
 
 

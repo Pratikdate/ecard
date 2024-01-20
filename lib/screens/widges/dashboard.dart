@@ -1,18 +1,16 @@
-
-
+import 'package:ecard/core/res/color_handler.dart';
 import 'package:ecard/core/res/icon_handler.dart';
 import 'package:ecard/screens/analysis_screen.dart';
 import 'package:ecard/screens/chat_screen.dart';
 import 'package:ecard/screens/my_profile.dart';
 import 'package:ecard/screens/scan_screen.dart';
+import 'package:ecard/screens/subscreen/virtual_profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../home_screen.dart';
-
-
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -22,12 +20,8 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-
-
-
-
-  PersistentTabController _controller = PersistentTabController(
-      initialIndex: 0);
+  PersistentTabController _controller =
+      PersistentTabController(initialIndex: 0);
 
   List<Widget> _buildScreen() {
     return [
@@ -42,34 +36,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
   List<PersistentBottomNavBarItem> _navBaritem() {
     return [
       PersistentBottomNavBarItem(
-          icon: Icon(IconHandler.NavHome),
-          activeColorPrimary: CupertinoColors.white,
-          inactiveColorPrimary: CupertinoColors.systemGrey
+        icon: Icon(IconHandler.NavHome),
+        activeColorPrimary: ColorHandler.normalFont,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-          icon: Icon(IconHandler.progress),
-          activeColorPrimary: CupertinoColors.white,
-          inactiveColorPrimary: CupertinoColors.systemGrey
+        icon: Icon(IconHandler.progress),
+        activeColorPrimary: ColorHandler.normalFont,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-
-          icon: Icon(IconHandler.qrScanner,color:CupertinoColors.white.withOpacity(0.5) ,),
-          activeColorPrimary: Colors.black12.withOpacity(0.3),
-          inactiveColorPrimary: CupertinoColors.white
-      ),
+          icon: Icon(
+            IconHandler.qrScanner,
+            color: ColorHandler.normalFont.withOpacity(0.5),
+          ),
+          activeColorPrimary: ColorHandler.bgColor.withOpacity(0.3),
+          inactiveColorPrimary: ColorHandler.normalFont),
       PersistentBottomNavBarItem(
           icon: Icon(IconHandler.message),
-          activeColorPrimary: CupertinoColors.white,
-          inactiveColorPrimary: CupertinoColors.systemGrey
-      ),
+          activeColorPrimary: ColorHandler.normalFont,
+          inactiveColorPrimary: CupertinoColors.systemGrey),
       PersistentBottomNavBarItem(
           icon: Icon(IconHandler.person),
-          activeColorPrimary: CupertinoColors.white,
-          inactiveColorPrimary: CupertinoColors.systemGrey
-      ),
+          activeColorPrimary: ColorHandler.normalFont,
+          inactiveColorPrimary: CupertinoColors.systemGrey),
     ];
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,16 +71,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
       items: _navBaritem(),
 
       confineInSafeArea: true,
-      backgroundColor: Colors.black12.withOpacity(0.3),
+      backgroundColor: ColorHandler.bgColor.withOpacity(0.3),
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(1),
-
-
       ),
       handleAndroidBackButtonPress: true, // Default is true.
-      resizeToAvoidBottomInset: true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+      resizeToAvoidBottomInset:
+          true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
       stateManagement: true, // Default is true.
-      hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+      hideNavigationBarWhenKeyboardShows:
+          true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
 
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,

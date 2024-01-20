@@ -1,4 +1,4 @@
-
+import 'package:ecard/core/res/color_handler.dart';
 import 'package:flutter/material.dart';
 
 import '../core/models/ScanQRCode.dart';
@@ -17,10 +17,9 @@ class _QRScanScreen extends State<QRScanScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: ColorHandler.bgColor,
       ),
-      backgroundColor: Colors.black,
-
+      backgroundColor: ColorHandler.bgColor,
 
       //body part
       body: QRCodeScannerScreen(),

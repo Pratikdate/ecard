@@ -30,7 +30,7 @@ class FontHandler extends StatelessWidget{
       softWrap: false,
       overflow: TextOverflow.fade,
       textAlign: textAlign,
-      style: GoogleFonts.poppins(
+      style: GoogleFonts.roboto(
         fontSize: fontsize ,//provide in %
         fontWeight: fontweight,
         color: color,

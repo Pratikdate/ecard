@@ -1,8 +1,16 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecard/core/models/image_picker.dart';
+import 'package:ecard/core/res/color_handler.dart';
 import 'package:ecard/core/res/icon_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:image_cropper/image_cropper.dart';
+import 'dart:async';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/cupertino.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
@@ -12,60 +20,117 @@ class UpdateProfileScreen extends StatefulWidget {
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
-
-
   final userName = TextEditingController();
   final userEmail = TextEditingController();
   final userphone = TextEditingController();
   final userabout = TextEditingController();
-
-  final _formkey=GlobalKey<FormState>();
 
   var name;
   var email;
   var phone;
   var about;
 
-
-  CollectionReference User_profile = FirebaseFirestore.instance.collection("User_Profiles");
+  CollectionReference User_profile =
+      FirebaseFirestore.instance.collection("User_Profiles");
   Future<void> setProfile() async {
     try {
-      await User_profile.doc(phone).set({
-        "name": name,
-        "email": email,
-        "phone": phone,
-        "about": about,
-      }).then((value) => print("user delete")).catchError(() => print("Fail delete user"));
+      await User_profile.doc(phone)
+          .set({
+            "name": name,
+            "email": email,
+            "phone": phone,
+            "about": about,
+          })
+          .then((value) => print("user delete"))
+          .catchError(() => print("Fail delete user"));
     } catch (e) {
       print(name);
       print(email);
-
-
     }
   }
 
+  //Image Picker Code gallery
+
+  final picker = ImagePicker();
+  String path = "";
+  File? _image;
+  dynamic? pickedFile;
+
+  Future getImageFromGallery() async {
+    pickedFile = await picker.pickImage(
+        source: ImageSource.gallery, requestFullMetadata: false, maxWidth: 120);
+
+    setState(() {
+      if (pickedFile != null) {
+        try {
+          _image = File(pickedFile.path);
+          path = _image!.path;
+        } catch (e) {}
+      }
+    });
+  }
+
+  //croper
+
+  CroppedFile? _croppedFile;
+  Future<void> _cropImage() async {
+
+    if (pickedFile != null) {
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: pickedFile.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9
+        ],
+        compressFormat: ImageCompressFormat.jpg,
+        compressQuality: 100,
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+        ],
+      );
+      if (croppedFile != null) {
+        setState(() {
+          _croppedFile = croppedFile;
+          print(_croppedFile);
+        });
+      }
+    }
+  }
+
+  void _clearImage() {
+    setState(() {
+      _croppedFile = null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      backgroundColor: Colors.black,
+      backgroundColor: ColorHandler.bgColor,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: ColorHandler.bgColor,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: Icon(
             IconHandler.angle_left,
-            color: Colors.white,
+            color: ColorHandler.normalFont,
           ),
         ),
         title: Text(
           "Edit Profile",
           style: TextStyle(
-            color: Colors.white,
+            color: ColorHandler.normalFont,
             fontWeight: FontWeight.bold,
             fontSize: 24.sp,
           ),
@@ -86,7 +151,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100.sp),
                   child: Image(
-                    image: AssetImage("assets_/img1.jpg"),
+                    image: AssetImage(path == "" ? "assets_/img1.jpg" : path),
                   ),
                 ),
               ),
@@ -103,10 +168,12 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     child: IconButton(
                       alignment: Alignment.center,
                       padding: EdgeInsets.only(right: 0),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ImagePicker_()));
+                      },
                       icon: Icon(
                         IconHandler.camera,
-                        color: Colors.black,
+                        color: ColorHandler.bgColor,
                         size: 20.sp,
                       ),
                     )),
@@ -123,7 +190,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      fillColor: Colors.white,
+                      fillColor: ColorHandler.normalFont,
                       label: Text("Full Name"),
                       prefixIcon: Icon(
                         IconHandler.person,
@@ -182,30 +249,23 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           ),
                         ),
                         onPressed: () {
-                        //if(_formkey.currentState!.validate()){
+                          //if(_formkey.currentState!.validate()){
 
-
-                            try{
-                              setState(() {
-                                name=userName.text;
-                                email=userEmail.text;
-                                phone=userphone.text;
-                                about=userabout.text;
-                              });
-                              setProfile();
-                              Navigator.pop(context);
-                            }catch(e){}
-
-
-
-
-
-
+                          try {
+                            setState(() {
+                              name = userName.text;
+                              email = userEmail.text;
+                              phone = userphone.text;
+                              about = userabout.text;
+                            });
+                            setProfile();
+                            Navigator.pop(context);
+                          } catch (e) {}
                         },
                         child: Text(
                           "Edit Profile",
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 20.sp),
+                          style: TextStyle(
+                              color: ColorHandler.normalFont, fontSize: 20.sp),
                         )),
                   ),
                 ],
@@ -217,5 +277,3 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     );
   }
 }
-
-

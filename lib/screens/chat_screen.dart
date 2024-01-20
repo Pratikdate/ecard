@@ -1,3 +1,4 @@
+import 'package:ecard/core/res/color_handler.dart';
 import 'package:ecard/core/res/font-handler.dart';
 import 'package:ecard/core/res/icon_handler.dart';
 import 'package:ecard/screens/home_screen.dart';
@@ -25,7 +26,7 @@ class _ChatScreenState extends State<ChatScreen> {
         home: DefaultTabController(
             length: 2,
             child: Scaffold(
-              backgroundColor: Colors.black,
+              backgroundColor: ColorHandler.bgColor,
               appBar: AppBar(
                   bottom: TabBar(
                     tabs: [
@@ -57,105 +58,101 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: [
                   SizedBox(
                     height: height,
-                    child: const FadedEdges(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          children: [
-                            ActivitesBar(
-                              FriendName: "Gaspard",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img1.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Rapier",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img1.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Bhavika",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img3.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Dev",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img4.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Arjun",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img5.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Gaspard",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img1.jpg',
-                            ),
-                          ],
-                        ),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: [
+                          ActivitesBar(
+                            FriendName: "Gaspard",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img1.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Rapier",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img1.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Bhavika",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img3.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Dev",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img4.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Arjun",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img5.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Gaspard",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img1.jpg',
+                          ),
+                        ],
                       ),
                     ),
                   ),
                   SizedBox(
                     height: height,
-                    child: const FadedEdges(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          children: [
-                            ActivitesBar(
-                              FriendName: "Gaspard",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img1.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Rapier",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img1.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Bhavika",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img3.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Dev",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img4.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Arjun",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img5.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Gaspard",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img1.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Rapier",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img1.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Bhavika",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img3.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Dev",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img4.jpg',
-                            ),
-                            ActivitesBar(
-                              FriendName: "Arjun",
-                              isChatWidge: true,
-                              ImgSrc: 'assets_/img5.jpg',
-                            ),
-                          ],
-                        ),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: [
+                          ActivitesBar(
+                            FriendName: "Gaspard",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img1.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Rapier",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img1.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Bhavika",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img3.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Dev",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img4.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Arjun",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img5.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Gaspard",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img1.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Rapier",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img1.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Bhavika",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img3.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Dev",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img4.jpg',
+                          ),
+                          ActivitesBar(
+                            FriendName: "Arjun",
+                            isChatWidge: true,
+                            ImgSrc: 'assets_/img5.jpg',
+                          ),
+                        ],
                       ),
                     ),
                   ),

@@ -1,17 +1,16 @@
-
+import 'package:ecard/core/res/color_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class QRCodeScannerScreen extends StatefulWidget {
-
   @override
   _QRCodeScannerState createState() => _QRCodeScannerState();
 }
 
 class _QRCodeScannerState extends State<QRCodeScannerScreen> {
-  _QRCodeScannerState(){
+  _QRCodeScannerState() {
     //scanQR();
   }
   String _scanBarcode = 'Unknown';
@@ -23,11 +22,11 @@ class _QRCodeScannerState extends State<QRCodeScannerScreen> {
 
   Future<void> startBarcodeScanStream() async {
     FlutterBarcodeScanner.getBarcodeStreamReceiver(
-        '#ff6666', 'Cancel', true, ScanMode.BARCODE)!
+            '#ff6666', 'Cancel', true, ScanMode.BARCODE)!
         .listen((barcode) => print(barcode));
   }
 
-   Future<void> scanQR() async {
+  Future<void> scanQR() async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
@@ -73,29 +72,26 @@ class _QRCodeScannerState extends State<QRCodeScannerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-
-            body: Builder(builder: (BuildContext context) {
-              return Container(
-                  alignment: Alignment.center,
-                  child: Flex(
-                      direction: Axis.vertical,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.deepPurpleAccent.withAlpha(100),
-                              minimumSize: Size(40.sp, 40.sp),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.sp),
-                              ),
-                            ),
-                            onPressed: () => scanQR(),
-                            child: Text('Start QR scan')
+        backgroundColor: ColorHandler.bgColor,
+        body: Builder(builder: (BuildContext context) {
+          return Container(
+              alignment: Alignment.center,
+              child: Flex(
+                  direction: Axis.vertical,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Colors.deepPurpleAccent.withAlpha(100),
+                          minimumSize: Size(40.sp, 40.sp),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.sp),
+                          ),
                         ),
-
-                      ]));
-            }));
+                        onPressed: () => scanQR(),
+                        child: Text('Start QR scan')),
+                  ]));
+        }));
   }
 }

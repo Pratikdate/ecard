@@ -1,3 +1,4 @@
+import "package:ecard/core/res/color_handler.dart";
 import "package:ecard/screens/subscreen/homeOntap/onActivitytap.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart";
@@ -11,8 +12,7 @@ class ActivitesBar extends StatelessWidget {
       required this.FriendName,
       this.FriendLavel = "",
       required this.ImgSrc,
-      this.isChatWidge = false
-      });
+      this.isChatWidge = false});
 
   final String FriendName;
   final String FriendLavel;
@@ -25,11 +25,14 @@ class ActivitesBar extends StatelessWidget {
         height: 80.sp,
         child: InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> const OnActivityTap()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const OnActivityTap()));
           },
           child: Card(
-            color: (isChatWidge) ? Colors.black : Colors.white.withOpacity(0.1),
-            //color: Colors.black,
+            color: (isChatWidge)
+                ? ColorHandler.bgColor
+                : ColorHandler.normalFont.withOpacity(0.1),
+            //color: ColorHandler.bgColor,
             child: Row(
               children: [
                 Padding(
@@ -53,7 +56,7 @@ class ActivitesBar extends StatelessWidget {
                       children: [
                         FontHandler(
                           FriendName,
-                          color: Colors.white,
+                          color: ColorHandler.normalFont,
                           textAlign: TextAlign.left,
                           fontweight: FontWeight.normal,
                           fontsize: 20.sp,
