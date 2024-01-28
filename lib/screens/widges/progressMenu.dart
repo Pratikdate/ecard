@@ -1,4 +1,5 @@
 import 'package:ecard/core/res/color_handler.dart';
+import 'package:ecard/screens/analysis_screen.dart';
 import 'package:ecard/screens/chart_screens/activty_chart.dart';
 import 'package:ecard/screens/subscreen/homeOntap/OnProcesstap.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/res/font-handler.dart';
 import '../../core/res/icon_handler.dart';
+import 'activites_bar.dart';
 
 class ProgressMenu extends StatelessWidget {
 
@@ -27,7 +29,7 @@ class ProgressMenu extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ActivityChart()));
+              MaterialPageRoute(builder: (context) => AnalysisScreen(isanalysis: false,isprogress: true,)));
         },
         child: Stack(
           children:[
@@ -69,6 +71,15 @@ class ProgressMenu extends StatelessWidget {
               left: 20,
               child: FontHandler(progressname, color: ColorHandler.normalFont, textAlign: TextAlign.center,fontsize: 16,fontweight: FontWeight.bold,),
             ),
+            Center(
+              widthFactor: 50,
+              heightFactor: 50,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: ActivityChart(),
+              ),
+            ),
+
           ]
         ),
       ),

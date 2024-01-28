@@ -1,11 +1,18 @@
 import 'dart:io';
 
+import 'package:ecard/screens/subscreen/update_profile_screen.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../screens/subscreen/virtual_profile_page.dart';
+
 class ImagePicker_ extends StatefulWidget {
-  const ImagePicker_({Key? key}) : super(key: key);
+  const ImagePicker_({super.key,this.isUpdateProfile=false,this.isVirtualProfile=false,});
+  final bool isUpdateProfile;
+  final bool isVirtualProfile;
+
 
   @override
   State<ImagePicker_> createState() => _ImagePickerState();
@@ -18,6 +25,7 @@ class _ImagePickerState extends State<ImagePicker_> {
     final pickedImage =
     await ImagePicker().pickImage(source: ImageSource.gallery);
 
+
     if (pickedImage != null) {
       setState(() {
         imageFile = File(pickedImage.path);
@@ -28,14 +36,12 @@ class _ImagePickerState extends State<ImagePicker_> {
   Future _cropImage() async {
     if (imageFile != null) {
       CroppedFile? cropped = await ImageCropper().cropImage(
+          cropStyle: CropStyle.circle,
           sourcePath: imageFile!.path,
           aspectRatioPresets:
           [
             CropAspectRatioPreset.square,
-            CropAspectRatioPreset.ratio3x2,
-            CropAspectRatioPreset.original,
-            CropAspectRatioPreset.ratio4x3,
-            CropAspectRatioPreset.ratio16x9
+            
           ],
 
           uiSettings: [
@@ -50,6 +56,19 @@ class _ImagePickerState extends State<ImagePicker_> {
     if (cropped != null) {
     setState(() {
     imageFile = File(cropped.path);
+    if(widget.isUpdateProfile) {
+      UpdateProfileScreen.croppedPath = cropped.path;
+
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UpdateProfileScreen()));
+    }
+    if(widget.isVirtualProfile){
+      VirtualProfileScreen.croppedPath = cropped.path;
+
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => VirtualProfileScreen()));
+    }
+
+
     });
     }
   }

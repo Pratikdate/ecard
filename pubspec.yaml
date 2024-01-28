@@ -50,6 +50,7 @@ dependencies:
   image_picker: ^1.0.7
   image_cropper: ^5.0.1
   syncfusion_flutter_charts: ^24.1.46+1
+  firebase_storage: ^11.6.0
 
 
 

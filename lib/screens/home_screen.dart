@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           FontHandler(
                             "Level 16",
-                            color: ColorHandler.normalFont,
+                            color: Colors.greenAccent,
                             textAlign: TextAlign.left,
                             fontweight: FontWeight.normal,
                             fontsize: 20.h,
@@ -139,6 +139,7 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
+                        ProgressMenu(progress: "good",progressicon:IconHandler.artical ,progressiconcolor: ColorHandler.violate ,progressname: "Post",aboutprogress: "Overall Quality",),
                         ProgressMenu(progress: "260",progressicon:IconHandler.view ,progressiconcolor: ColorHandler.violate ,progressname: "Views",aboutprogress: "Maximum Views",),
                         ProgressMenu(progress: "27",progressicon:IconHandler.like ,progressiconcolor: ColorHandler.yellow,progressname: "Likes",aboutprogress: "Maximum Likes",),
                         ProgressMenu(progress: "8",progressicon:IconHandler.comment ,progressiconcolor:ColorHandler.pink ,progressname: "Comments",aboutprogress: "Maximum Comments",),

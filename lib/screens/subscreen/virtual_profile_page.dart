@@ -1,18 +1,25 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecard/core/res/color_handler.dart';
 import 'package:ecard/core/res/font-handler.dart';
 import 'package:ecard/core/res/icon_handler.dart';
+import 'package:ecard/screens/subscreen/update_profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../core/models/image_picker.dart';
+import '../../db/snapshot_handler.dart';
 
 class VirtualProfileScreen extends StatefulWidget {
   const VirtualProfileScreen({super.key});
+  static var croppedPath;
+
 
   @override
   State<VirtualProfileScreen> createState() => _VirtualProfileScreenState();
@@ -24,14 +31,109 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
   final controller1=TextEditingController();
   final controller2=TextEditingController();
   final controller3=TextEditingController();
+  final controller4=TextEditingController();
+  final controller5=TextEditingController();
+  final controller6=TextEditingController();
 
   String title="John Grandson";
   String subtitle="Real Estate Broker";
   String about="This package is also a submission to Flutter Create contest. The basic rule of this contest is to measure the total Dart file size less or equal 5KB.After unzipping the compressed file, run following command to update dependencies";
+  String twitter='';
+  String linkedin='';
+  String website='';
+  String CorporateLogo='https://images.unsplash.com/photo-1620288627223-53302f4e8c74?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+  String Userimg="https://cdn.vectorstock.com/i/1000x1000/13/68/person-gray-photo-placeholder-man-vector-23511368.webp";
+  File? image;
+  final User? user=SnapShotHandler.CurrentUser();
+  CollectionReference User_profile = FirebaseFirestore.instance.collection("User_Profiles");
+  CollectionReference Virtual_Profile = FirebaseFirestore.instance.collection("Virtual_Profile");
 
-  SaveInfo(){
+
+
+
+  Future<void> SaveInfo() async {
+    try {
+
+      var imageName = user!.uid.toString();
+      var storageRef = FirebaseStorage.instance.ref().child('VirtualProfileCompanyLogos/$imageName.jpg');
+      image=File(VirtualProfileScreen.croppedPath);
+      var uploadTask = storageRef.putFile(image!);
+      await uploadTask;
+      var downloadUrl = await (await uploadTask).ref.getDownloadURL();
+
+
+
+      var data={
+        "CorporateLogo":downloadUrl.toString(),
+        "title":title,
+        "subtitle": subtitle,
+        "about": about,
+        "twitter":twitter,
+        "Website": website,
+        "Linkedin": linkedin
+      };
+
+      SnapShotHandler.SetData(Virtual_Profile.doc(user?.uid),data);
+
+
+    } catch (e) {
+      print("Error getting document: $e");
+    }
+  }
+
+
+  Future<void> ImageHandler() async {
+    if(VirtualProfileScreen.croppedPath!=null){
+      image=File(VirtualProfileScreen.croppedPath);
+    }
+
+    await User_profile.doc(user?.uid).get().then(
+          (DocumentSnapshot doc) {
+            if(doc.exists) {
+              final data = doc.data() as Map<String, dynamic>;
+              setState(() {
+                Userimg = data['image'].toString();
+              });
+            }
+      },
+      onError: (e) => print("Error getting document: $e"),
+    );
+
+    await Virtual_Profile.doc(user?.uid).get().then(
+          (DocumentSnapshot doc) {
+            if (doc.exists) {
+              final data = doc.data() as Map<String, dynamic>;
+              setState(() {
+                CorporateLogo = data['CorporateLogo'].toString();
+                title=data['title'].toString();
+                subtitle=data['subtitle'].toString();
+                about=data['about'].toString();
+                twitter=data['twitter'].toString();
+                linkedin=data['Linkedin'].toString();
+                website=data['website'].toString();
+              });
+            }
+
+          },
+      onError: (e) => print("Error getting document: $e"),
+    );
+  }
+
+
+
+
+
+  @override
+  void initState(){
+    try{
+      ImageHandler();
+    }catch(e) {
+
+    }
 
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +161,9 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                       child: SizedBox(
                         height: 20.h,
                         width: 20.w,
-                        child: Image.asset(
-                          "assets_/img2.jpg",
+                        child: image!=null? Image.file(image!):Image.network(
+                          CorporateLogo,
+
                         ),
                       ),
                     ),
@@ -78,7 +181,7 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                         alignment: Alignment.center,
                         padding: EdgeInsets.only(right: 0),
                         onPressed: () {
-                          Navigator.push(context,MaterialPageRoute(builder: (context)=>ImagePicker_()));
+                          Navigator.push(context,MaterialPageRoute(builder: (context)=>ImagePicker_(isVirtualProfile: true,)));
 
 
                         },
@@ -104,12 +207,14 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                         clipBehavior: Clip.hardEdge,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
+
                         ),
                         child: EditPress?
 
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           mainAxisSize: MainAxisSize.min,
+
 
 
                           children: [
@@ -133,6 +238,7 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                             SizedBox(
                               height: 40,
                               child: TextField(
+
                                 controller: controller2,
                                 textAlign: TextAlign.center,
                                 textAlignVertical: TextAlignVertical.bottom,
@@ -145,6 +251,7 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                             SizedBox(
                               height: 120,
                               child: TextField(
+
                                 controller: controller3,
                                 textAlign: TextAlign.center,
                                 textAlignVertical: TextAlignVertical.bottom,
@@ -178,16 +285,19 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                                 textAlign: TextAlign.center,
                                 fontsize: 25.sp,
                                 fontweight: FontWeight.bold),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10.w, vertical: 10.h),
-                              child: Text(
-                                about,
-                                maxLines: 6,
-                                softWrap: true,
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: ColorHandler.bgColor),
+                            SizedBox(
+                              height: 125,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10.w, vertical: 10.h),
+                                child: Text(
+                                  about,
+                                  maxLines: 6,
+                                  softWrap: true,
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: ColorHandler.bgColor),
+                                ),
                               ),
                             )
                           ],
@@ -209,12 +319,17 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                           setState(() {
 
                             controller1.text==""?title=title:title=controller1.text;
-                            controller1.text==""?subtitle=subtitle:subtitle=controller1.text;
-                            controller1.text==""?about=about:about=controller1.text;
-                            SaveInfo();
-                            EditPress?EditPress=false:EditPress=true;
+                            controller2.text==""?subtitle=subtitle:subtitle=controller2.text;
+                            controller3.text==""?about=about:about=controller3.text;
+                            controller4.text==""?twitter=twitter:twitter=controller4.text;
+                            controller5.text==""?linkedin=linkedin:linkedin=controller5.text;
+                            controller6.text==""?website=website:website=controller6.text;
+
+
+                            EditPress?(EditPress=false,SaveInfo()):EditPress=true;
 
                           });
+
 
 
                         },
@@ -227,26 +342,36 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                     ),
                   ),
                 ]),
-                SizedBox(
-                  height: 16.h,
+                
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    SeeMore(
+                        icon: IconHandler.twitter,
+                        text: "Twitter",
+                        onPressed: () {},
+                      EditPress: EditPress, controller: controller4,
+                    ),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    SeeMore(
+                      icon: IconHandler.linkedin,
+                      text: "Linkedin",
+                      onPressed: () {},
+                      EditPress: EditPress, controller: controller5,
+                    ),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    SeeMore(
+                        icon: IconHandler.earth, text: "Website", onPressed: () {},EditPress: EditPress, controller: controller6,),
+
+                  ],
                 ),
-                SeeMore(
-                    icon: IconHandler.whatsapp,
-                    text: "Whatsapp",
-                    onPressed: () {}),
-                SizedBox(
-                  height: 16.h,
-                ),
-                SeeMore(
-                    icon: IconHandler.earth, text: "Website", onPressed: () {}),
-                SizedBox(
-                  height: 16.h,
-                ),
-                SeeMore(
-                    icon: IconHandler.linkedin,
-                    text: "Linkedin",
-                    onPressed: () {}
-                )
+
               ],
             ),
             Container(
@@ -263,36 +388,12 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    child: Image(
-                      image: AssetImage("assets_/img1.jpg"),
+                    child: Image.network(
+                      Userimg
                     ),
                   ),
                 ),
-                Positioned(
-                  bottom: 14.sp,
-                  right: 14.sp,
-                  child: Container(
-                      width: 24.sp,
-                      height: 24.sp,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100.sp),
-                          color: Colors.yellow),
-                      child: IconButton(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.only(right: 0),
-                        onPressed: () {
-                          Navigator.push(context,MaterialPageRoute(builder: (context)=>ImagePicker_()));
 
-
-                        },
-                        icon: Icon(
-                          IconHandler.camera,
-                          color: ColorHandler.bgColor,
-                          size: 20.sp,
-                        ),
-                      )),
-                ),
               ]),
             ),
           ],
@@ -307,11 +408,15 @@ class SeeMore extends StatelessWidget {
     super.key,
     required this.icon,
     required this.text,
-    required this.onPressed,
+    required this.onPressed, 
+    required this.EditPress, 
+    required this.controller,
   });
   final IconData icon;
   final String text;
   final VoidCallback onPressed;
+  final bool EditPress;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -332,7 +437,25 @@ class SeeMore extends StatelessWidget {
               size: 30.sp,
               color: Colors.yellow,
             ),
-            Center(
+            EditPress?
+            SizedBox(
+              height: 50,
+              width: 240,
+              child: TextField(
+                controller: controller,
+                textAlign: TextAlign.center,
+                textAlignVertical: TextAlignVertical.bottom,
+
+                selectionHeightStyle: BoxHeightStyle.includeLineSpacingTop,
+                decoration: InputDecoration(
+                    hintText: text,
+
+
+                ),
+              ),
+
+            )
+                :Center(
                 widthFactor: 2.sp,
                 child: FontHandler(
                   text,

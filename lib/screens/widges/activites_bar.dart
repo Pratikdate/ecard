@@ -1,10 +1,12 @@
 import "package:ecard/core/res/color_handler.dart";
+import "package:ecard/screens/analysis_screen.dart";
 import "package:ecard/screens/subscreen/homeOntap/onActivitytap.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 
 import "../../core/res/font-handler.dart";
+import "../chart_screens/activty_chart.dart";
 
 class ActivitesBar extends StatelessWidget {
   const ActivitesBar(
@@ -26,7 +28,7 @@ class ActivitesBar extends StatelessWidget {
         child: InkWell(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const OnActivityTap()));
+                MaterialPageRoute(builder: (context) => const AnalysisScreen(isanalysis: false,isactivity: true,)));
           },
           child: Card(
             color: (isChatWidge)
@@ -49,9 +51,11 @@ class ActivitesBar extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
+                Container(
                   padding: EdgeInsets.all(10.sp),
+                  width: 120,
                   child: Column(
+
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FontHandler(
@@ -69,6 +73,14 @@ class ActivitesBar extends StatelessWidget {
                           fontsize: 16.sp,
                         ),
                       ]),
+                ),
+                Center(
+                  child: SizedBox(
+
+                    height: 60,
+                    width: 100,
+                    child: ActivityChart(),
+                  ),
                 ),
               ],
             ),

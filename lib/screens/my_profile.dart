@@ -1,3 +1,6 @@
+
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecard/core/authenticat/login.dart';
 import 'package:ecard/core/res/color_handler.dart';
 import 'package:ecard/core/res/icon_handler.dart';
@@ -5,11 +8,60 @@ import 'package:ecard/screens/subscreen/virtual_profile_page.dart';
 import 'package:ecard/screens/subscreen/update_profile_screen.dart';
 import 'package:ecard/screens/widges/profileMenu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../db/snapshot_handler.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+
+
+
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+  String path="";
+  String fullName="Name";
+  String email="@email.com";
+
+  String defaultImg="https://cdn.vectorstock.com/i/1000x1000/13/68/person-gray-photo-placeholder-man-vector-23511368.webp";
+
+  final User? user=SnapShotHandler.CurrentUser();
+  CollectionReference User_profile = FirebaseFirestore.instance.collection("User_Profiles");
+
+
+  ImageHandler() async {
+
+        await User_profile.doc(user?.uid).get().then(
+              (DocumentSnapshot doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            setState(() {
+              path = data['image'].toString();
+              fullName = data['name'].toString();
+              email = data['email'].toString();
+            });
+          },
+          onError: (e) => print("Error getting document: $e"),
+        ).onError((error, stackTrace) => null);
+
+  }
+
+
+
+  @override
+  void initState(){
+    try{
+      ImageHandler();
+    }catch(e) {
+
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +85,8 @@ class ProfileScreen extends StatelessWidget {
                   height: 120,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(100.sp),
-                    child: const Image(
-                      image: AssetImage("assets_/img1.jpg"),
+                    child: Image.network(
+                        path==""?defaultImg:path
                     ),
                   ),
                 ),
@@ -60,7 +112,7 @@ class ProfileScreen extends StatelessWidget {
                 height: 10.sp,
               ),
               Text(
-                "Coding with T",
+                fullName,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: ColorHandler.normalFont,
@@ -68,7 +120,7 @@ class ProfileScreen extends StatelessWidget {
                     fontStyle: FontStyle.normal),
               ),
               Text(
-                "superadmission@mail.com",
+                email,
                 style: TextStyle(
                     fontWeight: FontWeight.normal,
                     color: ColorHandler.normalFont,
@@ -118,13 +170,14 @@ class ProfileScreen extends StatelessWidget {
                 icon: IconHandler.home,
                 title: "Page",
                 onPressed: () {
-                  Navigator.pushAndRemoveUntil(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => VirtualProfileScreen(),
-                      ),
-                      (route) => true);
+                      ),);
+
                 },
+
                 endIcon: true,
                 textColor: ColorHandler.normalFont,
               ),
@@ -155,6 +208,7 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LoginScreen()), (route) => false);
+
                 },
                 endIcon: false,
                 textColor: Colors.red,

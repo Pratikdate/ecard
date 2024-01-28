@@ -19,8 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<String?> onLogin(LoginData data) async {
     try {
-      //UserCredential userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(email: data.email, password: data.password);
-      //print(userCredential);
+      UserCredential userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(email: data.email, password: data.password);
+
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Login successfully"),
         backgroundColor: Colors.green,
@@ -28,11 +28,11 @@ class _LoginScreenState extends State<LoginScreen> {
         behavior: SnackBarBehavior.floating,
       ));
 
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => DashboardScreen(),
-          ));
+            builder: (context) => DashboardScreen()
+          ),(route) => false);
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
       onForgotPassword: _onForgotPassword,
       //logo: Image.asset('assets/images/logo.gif'),
 
-      backgroundImage: 'assets_/images/auth_img/background.jpg',
+
       signUpMode: SignUpModes.both,
       //socialLogins: _socialLogins(context),
       loginDesktopTheme: _desktopTheme,

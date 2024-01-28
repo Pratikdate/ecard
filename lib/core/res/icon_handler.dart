@@ -20,6 +20,7 @@ class IconHandler {
   static const view=Ionicons.eye;
   static const like=AntDesign.like1;
   static const comment= FontAwesome.comments;
+  static const artical= MaterialIcons.article;
 
 
 
@@ -47,6 +48,7 @@ class IconHandler {
   static const IconData earth=AntDesign.earth;
   static const IconData linkedin=MaterialCommunityIcons.linkedin;
   static const IconData submit=EvilIcons.sc_telegram;
+  static const IconData twitter=EvilIcons.sc_twitter;
 
 
 

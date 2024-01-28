@@ -1,19 +1,22 @@
+
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecard/core/models/image_picker.dart';
 import 'package:ecard/core/res/color_handler.dart';
 import 'package:ecard/core/res/icon_handler.dart';
+import 'package:ecard/screens/my_profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'package:image_cropper/image_cropper.dart';
 import 'dart:async';
-import 'package:image_picker/image_picker.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:ecard/db/snapshot_handler.dart';
+
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
+  static var croppedPath;
+
 
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
@@ -30,86 +33,118 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   var phone;
   var about;
 
-  CollectionReference User_profile =
-      FirebaseFirestore.instance.collection("User_Profiles");
+  String path="https://cdn.vectorstock.com/i/1000x1000/13/68/person-gray-photo-placeholder-man-vector-23511368.webp";
+  File? image;
+  final User? user=SnapShotHandler.CurrentUser();
+
+
+
+  clear(){
+    userName.clear();
+    userEmail.clear();
+    userphone.clear();
+    userabout.clear();
+
+  }
+
+
+
+
+  CollectionReference User_profile = FirebaseFirestore.instance.collection("User_Profiles");
+  final _formKey = GlobalKey<FormState>();
+
+
+
+
+
   Future<void> setProfile() async {
     try {
-      await User_profile.doc(phone)
-          .set({
-            "name": name,
-            "email": email,
-            "phone": phone,
-            "about": about,
-          })
-          .then((value) => print("user delete"))
-          .catchError(() => print("Fail delete user"));
+
+      var imageName = user!.uid.toString();
+      var storageRef = FirebaseStorage.instance.ref().child('User_profile_images/$imageName.jpg');
+      image=File(UpdateProfileScreen.croppedPath);
+      var uploadTask = storageRef.putFile(image!);
+      await uploadTask;
+      var downloadUrl = await (await uploadTask).ref.getDownloadURL();
+
+      var data={
+        "image":downloadUrl.toString(),
+        "name": name,
+        "email": email,
+        "phone": phone,
+        "about": about,
+      };
+
+      SnapShotHandler.SetData(User_profile.doc(user?.uid),data);
+
+
     } catch (e) {
-      print(name);
-      print(email);
+      print("Error getting document: $e");
     }
+    
   }
 
-  //Image Picker Code gallery
+  ImageHandler() async {
+    if(UpdateProfileScreen.croppedPath!=null){
+      setState(() {
+        image=File(UpdateProfileScreen.croppedPath);
 
-  final picker = ImagePicker();
-  String path = "";
-  File? _image;
-  dynamic? pickedFile;
+      });
 
-  Future getImageFromGallery() async {
-    pickedFile = await picker.pickImage(
-        source: ImageSource.gallery, requestFullMetadata: false, maxWidth: 120);
 
-    setState(() {
-      if (pickedFile != null) {
-        try {
-          _image = File(pickedFile.path);
-          path = _image!.path;
-        } catch (e) {}
-      }
-    });
-  }
+    }
 
-  //croper
+      await User_profile.doc(user?.uid).get().then(
+            (DocumentSnapshot doc) {
+              if(doc.exists) {
+                final data = doc.data() as Map<String, dynamic>;
 
-  CroppedFile? _croppedFile;
-  Future<void> _cropImage() async {
-
-    if (pickedFile != null) {
-      CroppedFile? croppedFile = await ImageCropper().cropImage(
-        sourcePath: pickedFile.path,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9
-        ],
-        compressFormat: ImageCompressFormat.jpg,
-        compressQuality: 100,
-        uiSettings: [
-          AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: Colors.deepOrange,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-        ],
+              }
+        },
+        onError: (e) => print("Error getting document: $e"),
       );
-      if (croppedFile != null) {
-        setState(() {
-          _croppedFile = croppedFile;
-          print(_croppedFile);
-        });
-      }
-    }
+
+
   }
 
-  void _clearImage() {
-    setState(() {
-      _croppedFile = null;
-    });
+
+
+
+
+  @override
+  void initState(){
+    try{
+        ImageHandler();
+    }catch(e) {
+
+    }
+
   }
+
+
+  String? validateEmail(String? value) {
+    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+    final regex = RegExp(pattern);
+
+    return value!.isNotEmpty && !regex.hasMatch(value)
+        ? 'Enter a valid email address'
+        : null;
+  }
+
+
+
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +155,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         backgroundColor: ColorHandler.bgColor,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>ProfileScreen()), (route) => false);
           },
           icon: Icon(
             IconHandler.angle_left,
@@ -150,8 +185,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 height: 120,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100.sp),
-                  child: Image(
-                    image: AssetImage(path == "" ? "assets_/img1.jpg" : path),
+                  child:image!=null? Image.file(image!):Image.network(
+                    path,
+
                   ),
                 ),
               ),
@@ -169,7 +205,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       alignment: Alignment.center,
                       padding: EdgeInsets.only(right: 0),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ImagePicker_()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ImagePicker_(isUpdateProfile: true,)));
+
+
                       },
                       icon: Icon(
                         IconHandler.camera,
@@ -183,6 +221,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
               height: 25.sp,
             ),
             Form(
+              key:_formKey ,
               child: Column(
                 children: [
                   SizedBox(
@@ -197,6 +236,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                     ),
                     controller: userName,
+                    validator: (value){
+                      if(value!.isEmpty ){
+                        return 'please enter name';
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 25.sp,
@@ -209,6 +253,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                     ),
                     controller: userEmail,
+                      validator: validateEmail
                   ),
                   SizedBox(
                     height: 25.sp,
@@ -221,6 +266,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                     ),
                     controller: userphone,
+                    validator: (value){
+                      if(value!.isEmpty || value.length!=10 ){
+                        return 'please enter valid Phone number';
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 25.sp,
@@ -233,6 +283,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                     ),
                     controller: userabout,
+                    validator: (value){
+                      if(value!.isEmpty ){
+                        return 'please enter about text';
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 25.sp,
@@ -249,18 +304,21 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           ),
                         ),
                         onPressed: () {
-                          //if(_formkey.currentState!.validate()){
+                          if (_formKey.currentState!.validate()) {
+                            try {
+                              setState(() {
+                                name = userName.text;
+                                email = userEmail.text;
+                                phone = userphone.text;
+                                about = userabout.text;
+                              });
+                              setProfile();
+                              clear();
+                            } catch (e) {}
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>ProfileScreen()), (route) => false);
 
-                          try {
-                            setState(() {
-                              name = userName.text;
-                              email = userEmail.text;
-                              phone = userphone.text;
-                              about = userabout.text;
-                            });
-                            setProfile();
-                            Navigator.pop(context);
-                          } catch (e) {}
+                          }
+
                         },
                         child: Text(
                           "Edit Profile",
