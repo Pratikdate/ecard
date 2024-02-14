@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:ecard/screens/subscreen/update_profile_screen.dart';
+import 'package:ecard/screens/subscreen/myProfile/update_profile_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../screens/subscreen/virtual_profile_page.dart';
+import '../../screens/subscreen/myProfile/virtual_profile_page.dart';
 
 class ImagePicker_ extends StatefulWidget {
   const ImagePicker_({super.key,this.isUpdateProfile=false,this.isVirtualProfile=false,});

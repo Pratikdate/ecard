@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  static final routeName = "/home";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,8 +23,17 @@ class HomeScreen extends StatelessWidget {
         leading: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                },
+                icon: Icon(
+                  IconHandler.notification,
+                  color: CupertinoColors.systemGrey,
+                )),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.only(right: 20),
               child: SearchBarWidge(),
             ),
           ],
@@ -75,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100.sp),
                           child: const Image(
-                            image: AssetImage("assets_/img1.jpg"),
+                            image: AssetImage("assets/img1.jpg"),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -139,11 +149,34 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        ProgressMenu(progress: "good",progressicon:IconHandler.artical ,progressiconcolor: ColorHandler.violate ,progressname: "Post",aboutprogress: "Overall Quality",),
-                        ProgressMenu(progress: "260",progressicon:IconHandler.view ,progressiconcolor: ColorHandler.violate ,progressname: "Views",aboutprogress: "Maximum Views",),
-                        ProgressMenu(progress: "27",progressicon:IconHandler.like ,progressiconcolor: ColorHandler.yellow,progressname: "Likes",aboutprogress: "Maximum Likes",),
-                        ProgressMenu(progress: "8",progressicon:IconHandler.comment ,progressiconcolor:ColorHandler.pink ,progressname: "Comments",aboutprogress: "Maximum Comments",),
-
+                        ProgressMenu(
+                          progress: "good",
+                          progressicon: IconHandler.artical,
+                          progressiconcolor: ColorHandler.blue,
+                          progressname: "Post",
+                          aboutprogress: "Overall Quality",
+                        ),
+                        ProgressMenu(
+                          progress: "260",
+                          progressicon: IconHandler.view,
+                          progressiconcolor: ColorHandler.violate,
+                          progressname: "Views",
+                          aboutprogress: "Maximum Views",
+                        ),
+                        ProgressMenu(
+                          progress: "27",
+                          progressicon: IconHandler.like,
+                          progressiconcolor: ColorHandler.yellow,
+                          progressname: "Likes",
+                          aboutprogress: "Maximum Likes",
+                        ),
+                        ProgressMenu(
+                          progress: "8",
+                          progressicon: IconHandler.comment,
+                          progressiconcolor: ColorHandler.pink,
+                          progressname: "Comments",
+                          aboutprogress: "Maximum Comments",
+                        ),
                       ],
                     ),
                   ),
@@ -173,27 +206,27 @@ class HomeScreen extends StatelessWidget {
                             ActivitesBar(
                               FriendName: "Gaspard",
                               FriendLavel: "Lv2",
-                              ImgSrc: 'assets_/img1.jpg',
+                              ImgSrc: 'assets/img1.jpg',
                             ),
                             ActivitesBar(
                               FriendName: "Rapier",
                               FriendLavel: "Lv3",
-                              ImgSrc: 'assets_/img1.jpg',
+                              ImgSrc: 'assets/img1.jpg',
                             ),
                             ActivitesBar(
                               FriendName: "Bhavika",
                               FriendLavel: "Lv4",
-                              ImgSrc: 'assets_/img3.jpg',
+                              ImgSrc: 'assets/img3.jpg',
                             ),
                             ActivitesBar(
                               FriendName: "Dev",
                               FriendLavel: "Lv3",
-                              ImgSrc: 'assets_/img4.jpg',
+                              ImgSrc: 'assets/img4.jpg',
                             ),
                             ActivitesBar(
                               FriendName: "Arjun",
                               FriendLavel: "Lv1",
-                              ImgSrc: 'assets_/img5.jpg',
+                              ImgSrc: 'assets/img5.jpg',
                             ),
                           ],
                         ),

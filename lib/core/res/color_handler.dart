@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorHandler {
-  static const Color bgColor = Color.fromARGB(255, 0, 0, 0);
+  static const Color bgColor = Color.fromARGB(255, 0, 0, 1);
   static const Color normalFont = Color.fromARGB(255, 248, 248, 248);
   static const Color violate= Color.fromARGB(255, 128, 123, 225);
   static const Color yellow= Color.fromARGB(255, 250, 175, 89);

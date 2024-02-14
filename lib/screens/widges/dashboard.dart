@@ -4,7 +4,7 @@ import 'package:ecard/screens/analysis_screen.dart';
 import 'package:ecard/screens/chat_screen.dart';
 import 'package:ecard/screens/my_profile.dart';
 import 'package:ecard/screens/scan_screen.dart';
-import 'package:ecard/screens/subscreen/virtual_profile_page.dart';
+import 'package:ecard/screens/subscreen/myProfile/virtual_profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';

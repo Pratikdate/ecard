@@ -1,5 +1,12 @@
 <manifest xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+        tools:ignore="WrongManifestParent" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"
+        tools:ignore="WrongManifestParent" />
+
+
     <application
         android:label="ecard"
         android:name="${applicationName}"
@@ -26,11 +33,26 @@
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
-              />
+
+                />
+
+            <meta-data
+                android:name="flutterEmbedding"
+                android:value="2" />
             <intent-filter>
 
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+
+
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "example://gizmos” -->
+                <!-- Registered Callback URLs in TwitterApp -->
+                <data android:scheme="example"
+                    android:host="gizmos" /> <!-- host is option -->
+
             </intent-filter>
         </activity>
         <activity android:name="com.android.camera.CropImage"

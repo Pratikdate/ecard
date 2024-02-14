@@ -3,6 +3,8 @@ import 'package:ecard/core/res/color_handler.dart';
 import 'package:ecard/screens/widges/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:twitter_login/twitter_login.dart';
 
 import '../../screens/home_screen.dart';
 
@@ -19,7 +21,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<String?> onLogin(LoginData data) async {
     try {
-      UserCredential userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(email: data.email, password: data.password);
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: data.email, password: data.password);
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Login successfully"),
@@ -30,9 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(
-            builder: (context) => DashboardScreen()
-          ),(route) => false);
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
+          (route) => false);
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -65,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: data.email, password: data.password);
-      print(userCredential);
+
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Residtrstion successfully login"),
         backgroundColor: Colors.green,
@@ -133,6 +136,79 @@ class _LoginScreenState extends State<LoginScreen> {
     return await onForgotPassword(email);
   }
 
+//social authentiation
+  List<SocialLogin> _socialLogins(BuildContext context) => <SocialLogin>[
+        SocialLogin(
+          iconPath: 'assets/images/auth_img/google.png',
+          callback: () => signInWithGoogle(),
+        ),
+        SocialLogin(
+            callback: () async => signInWithGoogle(),
+            iconPath: 'assets/images/auth_img/linkedin.png'),
+        SocialLogin(
+            callback: () => signInWithTwitter(),
+            iconPath: 'assets/images/auth_img/X.png'),
+      ];
+
+  Future<String?> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    print(credential);
+    if (userCredential.user != null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("successfully login"),
+        backgroundColor: Colors.green,
+        elevation: 10,
+        behavior: SnackBarBehavior.floating,
+      ));
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
+          (route) => false);
+    }
+  }
+
+  Future<String?> signInWithTwitter() async {
+    // Create a TwitterLogin instance
+    final twitterLogin = TwitterLogin(
+        apiKey: 'c1WjNg9Na0kSUwVhEFyQdAJ9I',
+        apiSecretKey: '8eipsvmZ4X5yvhlYdBiTW1LMqWTWrbF8v0pWEYwPKNdjBQozjO',
+        redirectURI: '/home');
+
+    // Trigger the sign-in flow
+    final authResult = await twitterLogin.login();
+
+    // Create a credential from the access token
+    final twitterAuthCredential = TwitterAuthProvider.credential(
+      accessToken: authResult.authToken!,
+      secret: authResult.authTokenSecret!,
+    );
+
+    // Once signed in, return the UserCredential
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
+    if (userCredential.user != null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("successfully login"),
+        backgroundColor: Colors.green,
+        elevation: 10,
+        behavior: SnackBarBehavior.floating,
+      ));
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
+          (route) => false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedLogin(
@@ -141,9 +217,8 @@ class _LoginScreenState extends State<LoginScreen> {
       onForgotPassword: _onForgotPassword,
       //logo: Image.asset('assets/images/logo.gif'),
 
-
       signUpMode: SignUpModes.both,
-      //socialLogins: _socialLogins(context),
+      socialLogins: _socialLogins(context),
       loginDesktopTheme: _desktopTheme,
       loginMobileTheme: _mobileTheme,
       loginTexts: _loginTexts,

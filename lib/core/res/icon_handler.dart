@@ -4,12 +4,16 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 
 class IconHandler {
+  //social media
+  static const facebook= Zocial.facebook;
+  static const pinterest= Zocial.pinterest;
 
   //Nav
   static const qrScanner=MaterialCommunityIcons.qrcode_scan;
   static const NavHome=Icons.home;
   static const search=Icons.search;
   static const message=Icons.message;
+  static const notification=Ionicons.notifications;
   static const progress=MaterialCommunityIcons.progress_check;
 
 
@@ -21,6 +25,9 @@ class IconHandler {
   static const like=AntDesign.like1;
   static const comment= FontAwesome.comments;
   static const artical= MaterialIcons.article;
+
+  static const dislike= AntDesign.dislike1;
+
 
 
 

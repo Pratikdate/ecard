@@ -2,6 +2,9 @@ import 'package:ecard/core/res/color_handler.dart';
 import 'package:ecard/core/res/font-handler.dart';
 import 'package:ecard/core/res/icon_handler.dart';
 import 'package:ecard/screens/home_screen.dart';
+import 'package:ecard/screens/subscreen/Comunity/chatScreenHandler.dart';
+import 'package:ecard/screens/subscreen/Comunity/community.dart';
+import 'package:ecard/screens/subscreen/Comunity/learnings.dart';
 import 'package:ecard/screens/widges/activites_bar.dart';
 import 'package:ecard/screens/widges/searchbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,22 +22,23 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: DefaultTabController(
-            length: 2,
+            length: 3,
             child: Scaffold(
               backgroundColor: ColorHandler.bgColor,
               appBar: AppBar(
                   bottom: TabBar(
                     tabs: [
-                      Tab(text: "Recent"),
-                      Tab(text: "All"),
+                      Tab(text: "Learnings"),
+                      Tab(text: "Comunity"),
+                      Tab(text: "Chat Bot"),
+
                     ],
                   ),
-                  toolbarHeight: 80,
+                  toolbarHeight: 50,
                   leadingWidth: MediaQuery.of(context).size.width,
                   backgroundColor: Colors.yellow.shade700,
                   shape: RoundedRectangleBorder(
@@ -48,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
+                              horizontal: 20,),
                           child: SearchBarWidge(),
                         ),
                       ],
@@ -56,106 +60,18 @@ class _ChatScreenState extends State<ChatScreen> {
                   ])),
               body: TabBarView(
                 children: [
-                  SizedBox(
-                    height: height,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          ActivitesBar(
-                            FriendName: "Gaspard",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img1.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Rapier",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img1.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Bhavika",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img3.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Dev",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img4.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Arjun",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img5.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Gaspard",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img1.jpg',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          ActivitesBar(
-                            FriendName: "Gaspard",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img1.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Rapier",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img1.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Bhavika",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img3.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Dev",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img4.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Arjun",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img5.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Gaspard",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img1.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Rapier",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img1.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Bhavika",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img3.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Dev",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img4.jpg',
-                          ),
-                          ActivitesBar(
-                            FriendName: "Arjun",
-                            isChatWidge: true,
-                            ImgSrc: 'assets_/img5.jpg',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+
+
+                  LearningPage(),
+                  CommunityPage(),
+                  ChatScreenHandler(isComunityPage: false,),
+
+
+
+
+
+
+
                 ],
               ),
             )));

@@ -1,9 +1,11 @@
 import 'package:ecard/core/authenticat/login.dart';
+import 'package:ecard/screens/home_screen.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main()  {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
@@ -46,6 +48,7 @@ class MyApp extends StatelessWidget {
 
                     routes: {
                       LoginScreen.routeName:(context)=>LoginScreen(),
+                      HomeScreen.routeName:(context)=>HomeScreen()
 
                     },
                   );

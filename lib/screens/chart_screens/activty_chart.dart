@@ -39,8 +39,8 @@ class _ActivityChartState extends State<ActivityChart> {
   Widget build(BuildContext context) {
     final List<Color> color = <Color>[];
     color.add(Colors.transparent.withOpacity(0)!);
-    color.add(Colors.green.withOpacity(0.2));
-    color.add(Colors.green.withOpacity(0.6));
+    color.add(Colors.transparent.withOpacity(0.2));
+    color.add(Colors.transparent.withOpacity(0.4));
     final List<double> stops = <double>[];
     stops.add(0.0);
     stops.add(0.5);

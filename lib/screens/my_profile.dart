@@ -4,8 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecard/core/authenticat/login.dart';
 import 'package:ecard/core/res/color_handler.dart';
 import 'package:ecard/core/res/icon_handler.dart';
-import 'package:ecard/screens/subscreen/virtual_profile_page.dart';
-import 'package:ecard/screens/subscreen/update_profile_screen.dart';
+import 'package:ecard/screens/subscreen/myProfile/profiles.dart';
+import 'package:ecard/screens/subscreen/myProfile/virtual_profile_page.dart';
+import 'package:ecard/screens/subscreen/myProfile/update_profile_screen.dart';
 import 'package:ecard/screens/widges/profileMenu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -199,6 +200,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 icon: IconHandler.info_circle,
                 title: "Information",
                 onPressed: () {},
+                endIcon: true,
+                textColor: ColorHandler.normalFont,
+              ),
+              ProfileMenuWidget(
+                icon: IconHandler.artical,
+                title: "Profiles",
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>UserProfilesScreen()));
+
+                },
                 endIcon: true,
                 textColor: ColorHandler.normalFont,
               ),
