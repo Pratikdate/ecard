@@ -33,7 +33,6 @@ Our vision is to revolutionize how individuals perceive and manage their persona
 - **Actionable Insights**: Receive actionable insights to enhance your online presence and improve your digital identity.
 - **Customizable Dashboards**: Personalize your monitoring experience by choosing relevant metrics and insights for your personal brand goals.
 - **Influencer Collaboration**: Collaborate with influencers and professionals to cross-promote, engage in joint campaigns, and build your brand together.
-- **Crisis Management Alerts**: Get alerted to sudden spikes in negative sentiment or potential PR crises, allowing for swift response and damage control.
 - **Competitor Analysis**: Compare your brand performance against competitors to identify areas for improvement and differentiation.
 - **Keyword Tracking**: Track specific keywords relevant to your brand or industry to stay on top of trends and conversations.
 - **Cross-Platform Integration**: Integrate with social media platforms, blogs, forums, and news sources to provide a holistic view of your online presence.
