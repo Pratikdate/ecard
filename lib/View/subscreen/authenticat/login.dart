@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:twitter_login/twitter_login.dart';
 import '../../coreRes/color_handler.dart';
-import '../../widges/dashboard.dart';
+import '../../routes/dashboard.dart';
 
 
 class LoginScreen extends StatefulWidget {

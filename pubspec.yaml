@@ -60,6 +60,7 @@ dependencies:
   bubble: ^1.2.1
   video_player: ^2.8.2
   flutter_phoenix: ^1.1.1
+  device_preview: ^1.1.0
 
 
 

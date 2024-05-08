@@ -1,4 +1,5 @@
 
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,15 @@ import 'View/subscreen/authenticat/login.dart';
 void main()  {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
-      Phoenix(
-          child:MyApp()
-      ));
+      DevicePreview(
+          enabled: true,
+          tools: const [
+            ...DevicePreview.defaultTools,
+
+          ],
+       builder: (BuildContext context) => MyApp(),
+      )
+  );
 }
 
 //app look like
@@ -44,6 +51,9 @@ class MyApp extends StatelessWidget {
                 splitScreenMode: true,
                 builder: (_, child) {
                   return MaterialApp(
+                    useInheritedMediaQuery: true,
+                    locale: DevicePreview.locale(context),
+                    builder: DevicePreview.appBuilder,
                     debugShowMaterialGrid: false,
                     debugShowCheckedModeBanner: false,
                     title: "Personal Brand Manager",

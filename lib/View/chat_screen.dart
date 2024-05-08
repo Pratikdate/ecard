@@ -72,7 +72,7 @@ class _ChatScreenState extends State<ChatScreen>
               bottom: TabBar(
                 controller: _tabController,
                 tabs: const [
-                  Tab(text: "Comunity"),
+                  Tab(text: "Community"),
                   Tab(text: "Chats"),
                   Tab(text: "Chat Bot"),
                 ],
