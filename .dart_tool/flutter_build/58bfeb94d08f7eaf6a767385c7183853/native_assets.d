@@ -1,0 +1,1 @@
+ E:\\ECard\\ecard\\.dart_tool\\flutter_build\\58bfeb94d08f7eaf6a767385c7183853\\native_assets.yaml: 
