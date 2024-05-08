@@ -5,7 +5,7 @@
 # 💻Tech Stacks
 ![Static Badge](https://img.shields.io/badge/Flutter-blue)
 ![Static Badge](https://img.shields.io/badge/Dart-b)
-![Static Badge](https://img.shields.io/badge/FierbBase-yellow)
+![Static Badge](https://img.shields.io/badge/FireBase-yellow)
 
 </div>
 
