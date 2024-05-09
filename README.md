@@ -71,6 +71,7 @@ We welcome contributions from the community! If you'd like to contribute to Svan
 
 <img src="https://imgur.com/wuiJXqr.png"/>
 *Thank you for being a part of the monitor project.*
+*And dont forgate to give star to repo*
 
 <p align="right"><a href="#top">Back to top ⬆</a></p>
 
