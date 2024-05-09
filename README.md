@@ -35,7 +35,6 @@ Our vision is to revolutionize how individuals perceive and manage their persona
 - **Influencer Collaboration**: Collaborate with influencers and professionals to cross-promote, engage in joint campaigns, and build your brand together.
 - **Competitor Analysis**: Compare your brand performance against competitors to identify areas for improvement and differentiation.
 - **Cross-Platform Integration**: Integrate with social media platforms, blogs, forums, and news sources to provide a holistic view of your online presence.
-- **Language Support**: Support for multiple languages in sentiment analysis to cater to a global audience.
 - **Historical Data Analysis**: Access and analyze historical data to identify long-term trends and measure the impact of specific campaigns.
 - **Chat Assistance Integration**: Get real-time support and guidance on platform features and functionalities through chat assistance.
 
