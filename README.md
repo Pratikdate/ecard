@@ -34,7 +34,6 @@ Our vision is to revolutionize how individuals perceive and manage their persona
 - **Customizable Dashboards**: Personalize your monitoring experience by choosing relevant metrics and insights for your personal brand goals.
 - **Influencer Collaboration**: Collaborate with influencers and professionals to cross-promote, engage in joint campaigns, and build your brand together.
 - **Competitor Analysis**: Compare your brand performance against competitors to identify areas for improvement and differentiation.
-- **Keyword Tracking**: Track specific keywords relevant to your brand or industry to stay on top of trends and conversations.
 - **Cross-Platform Integration**: Integrate with social media platforms, blogs, forums, and news sources to provide a holistic view of your online presence.
 - **Language Support**: Support for multiple languages in sentiment analysis to cater to a global audience.
 - **Historical Data Analysis**: Access and analyze historical data to identify long-term trends and measure the impact of specific campaigns.
@@ -71,6 +70,7 @@ We welcome contributions from the community! If you'd like to contribute to Svan
 
 <img src="https://imgur.com/wuiJXqr.png"/>
 *Thank you for being a part of the monitor project.*
+
 *And dont forgate to give star to repo*
 
 <p align="right"><a href="#top">Back to top ⬆</a></p>
