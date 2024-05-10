@@ -21,6 +21,7 @@ class _UserProfilesScreenState extends State<UserProfilesScreen> {
   @override
   Widget build(BuildContext context) {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
           backgroundColor: ColorHandler.bgColor,
           appBar: AppBar(
 
