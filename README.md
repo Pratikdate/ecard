@@ -72,7 +72,7 @@ We welcome contributions from the community! If you'd like to contribute to Svan
 
 *And dont forget to give star to repo*
 
-*For more information join monitor descord server* [](https://discord.gg/JK4qnXSZ)
+*For more information join monitor descord server* [monitor server](https://discord.gg/JK4qnXSZ)
 
 <p align="right"><a href="#top">Back to top ⬆</a></p>
 
