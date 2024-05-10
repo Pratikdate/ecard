@@ -76,6 +76,6 @@ We welcome contributions from the community! If you'd like to contribute to Svan
 
 <p align="right"><a href="#top">Back to top ⬆</a></p>
 
-## License
 
-This project is licensed under the [MIT License](LICENSE).
+
+
