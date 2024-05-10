@@ -6,7 +6,7 @@ import '../analysis_screen.dart';
 import '../chart_screens/activty_chart.dart';
 import '../coreRes/color_handler.dart';
 import '../coreRes/font-handler.dart';
-import 'activites_bar.dart';
+import 'activity_bar.dart';
 
 class ProgressMenu extends StatelessWidget {
 
@@ -23,8 +23,8 @@ class ProgressMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.sp),
-      height: 160.w,
-      width: 140.w,
+      height: 140.r,
+      width: 120.r,
       child: InkWell(
         onTap: () {
           Navigator.push(context,
@@ -33,8 +33,8 @@ class ProgressMenu extends StatelessWidget {
         child: Stack(
           children:[
             SizedBox(
-              width: 140.h,
-              height: 140.h,
+              width: 120.r,
+              height: 120.r,
               child: Card(
                 color:ColorHandler.normalFont.withOpacity(0.1),
                 child:  Column(
@@ -51,30 +51,30 @@ class ProgressMenu extends StatelessWidget {
               top: 0,
               right: 0,
               child: Container(
-                width: 26.w,
-                height: 26.h,
+                width: 26.r,
+                height: 26.r,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.sp),
                     color: progressiconcolor),
                 child:  Icon(
                   progressicon,
                   color: ColorHandler.normalFont.withOpacity(1),
-                  size: 18,
+                  size: 18.sp,
                 ),
               ),
             ),
 
 
             Positioned(
-              top: 10,
-              left: 20,
+              top: 10.r,
+              left: 20.r,
               child: FontHandler(progressname, color: ColorHandler.normalFont, textAlign: TextAlign.center,fontsize: 16,fontweight: FontWeight.bold,),
             ),
             Center(
-              widthFactor: 50,
-              heightFactor: 50,
+              widthFactor: 50.r,
+              heightFactor: 50.r,
               child: Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: EdgeInsets.all(4.0.r),
                 child: ActivityChart(),
               ),
             ),

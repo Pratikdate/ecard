@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           }
           if(snapshot.connectionState==ConnectionState.done){
             return ScreenUtilInit(
-                designSize: const Size(392.72, 834.90),
+                designSize: const Size(360, 640),
                 minTextAdapt: true,
                 splitScreenMode: true,
                 builder: (_, child) {
