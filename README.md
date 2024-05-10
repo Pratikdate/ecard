@@ -59,7 +59,7 @@ To get started with Svanugrahaka, follow these steps:
 
 ## Contribution <a name="contributing"></a>
 
-We welcome contributions from the community! If you'd like to contribute to Svanugrahaka, please fork the repository, make your changes, and submit a pull request on new branch. For major changes, please open an issue first to discuss the proposed changes.
+We welcome contributions from the community! If you'd like to contribute to Svanugrahaka, please fork the repository, make your changes, and submit a pull. For major changes, please open an issue first to discuss the proposed changes.
 
 <a href="https://github.com/Pratikdate/Monitor/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Pratikdate/Monitor" />
