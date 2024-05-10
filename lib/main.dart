@@ -7,6 +7,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'View/home_screen.dart';
+import 'View/routes/dashboard.dart';
 import 'View/subscreen/authenticat/login.dart';
 
 void main() {
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
                         : HomeScreen.routeName,
                     routes: {
                       LoginScreen.routeName: (context) => LoginScreen(),
-                      HomeScreen.routeName: (context) => HomeScreen()
+                      HomeScreen.routeName: (context) => DashboardScreen()
                     },
                   );
                 });
