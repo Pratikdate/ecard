@@ -27,8 +27,8 @@ class ProfileMenuWidget extends StatelessWidget {
     return ListTile(
       onTap: onPressed,
       leading: Container(
-        width: 30,
-        height: 30,
+        width: 28.r,
+        height: 28.r,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.sp),
           color: ColorHandler.normalFont.withOpacity(0.1),
@@ -41,19 +41,19 @@ class ProfileMenuWidget extends StatelessWidget {
       title: Text(
         title,
         style: TextStyle(
-            color: textColor, fontSize: 20, fontWeight: FontWeight.bold),
+            color: textColor, fontSize: 18.sp, fontWeight: FontWeight.bold),
       ),
       trailing: endIcon
           ? Container(
-              width: 30.sp,
-              height: 30.sp,
+              width: 28.r,
+              height: 28.r,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100.sp),
                 color: Colors.grey.withOpacity(0.1.sp),
               ),
               child: Icon(
                 FontAwesome.angle_right,
-                size: 20.sp,
+                size: 18.sp,
                 color: Colors.grey,
               ),
             )
