@@ -22,7 +22,9 @@ class _UserInfoNavState extends State<UserInfoNav> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height<732?0.36.sh:0.42.sh,
+
+      height: MediaQuery.of(context).size.height < 732 ? 0.36.sh : 0.42.sh,
+
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -34,8 +36,9 @@ class _UserInfoNavState extends State<UserInfoNav> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const VirtualProfileScreen(),
-                  ),);
 
+                  ),
+                );
               },
 
               endIcon: true,
@@ -66,7 +69,11 @@ class _UserInfoNavState extends State<UserInfoNav> {
               icon: IconHandler.artical,
               title: "Profiles",
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const UserProfilesScreen()));
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UserProfilesScreen()));
 
               },
               endIcon: true,
@@ -77,7 +84,16 @@ class _UserInfoNavState extends State<UserInfoNav> {
               title: "Logout",
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginScreen()));
+
+                Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return LoginScreen();
+                    },
+                  ),
+                  (_) => false,
+                );
+
                 Phoenix.rebirth(context);
               },
               endIcon: false,
