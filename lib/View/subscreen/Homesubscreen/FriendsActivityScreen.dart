@@ -61,7 +61,7 @@ class _OnActivityTapState extends State<FriendsActivityScreen > {
 
             SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: 360,
+                height: 350.r,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -71,12 +71,12 @@ class _OnActivityTapState extends State<FriendsActivityScreen > {
                         "Engagement Rate",
                         color: ColorHandler.normalFont,
                         textAlign: TextAlign.start,
-                        fontsize: 22.sp,
+                        fontsize: 20.sp,
                         fontweight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 10.h,
                     ),
                     const ActivityChart(isanalysis: true),
                   ],

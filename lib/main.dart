@@ -12,13 +12,21 @@ import 'View/subscreen/authenticat/login.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(DevicePreview(
-    enabled: true,
-    tools: const [
-      ...DevicePreview.defaultTools,
-    ],
-    builder: (BuildContext context) => MyApp(),
-  ));
+  runApp(
+
+    //Use when you want to work on design
+
+  //     DevicePreview(
+  //   enabled: true,
+  //   tools: const [
+  //     ...DevicePreview.defaultTools,
+  //   ],
+  //   builder: (BuildContext context) => MyApp(),
+  // ));
+
+      Phoenix(
+          child:MyApp()
+      ));
 }
 
 //app look like

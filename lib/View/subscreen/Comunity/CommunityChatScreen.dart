@@ -101,7 +101,7 @@ class ActivitesBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 80.sp,
+        height: 72.r,
         child: InkWell(
           onTap: () {
             Navigator.push(
@@ -123,8 +123,8 @@ class ActivitesBar extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(10.sp),
                   child: SizedBox(
-                    width: 50.sp,
-                    height: 50.sp,
+                    width: 40.r,
+                    height: 40.r,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100.sp),
                       child: Image.network(
@@ -135,8 +135,8 @@ class ActivitesBar extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(10.sp),
-                  width: 120,
+                  padding: EdgeInsets.all(8.sp),
+                  width: 120.r,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -145,14 +145,14 @@ class ActivitesBar extends StatelessWidget {
                           color: ColorHandler.normalFont,
                           textAlign: TextAlign.left,
                           fontweight: FontWeight.normal,
-                          fontsize: 20.sp,
+                          fontsize: 18.sp,
                         ),
                         FontHandler(
                           lastmessage,
                           color: ColorHandler.normalFont.withOpacity(0.6),
                           textAlign: TextAlign.left,
                           fontweight: FontWeight.normal,
-                          fontsize: 14.sp,
+                          fontsize: 12.sp,
                         ),
                       ]),
                 ),

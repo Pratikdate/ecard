@@ -155,7 +155,7 @@ class _LearningPageState extends State<SocialPage> {
 
 
         SizedBox(
-          height: 0.66.sh,
+          height: 0.64.sh,
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             padding: EdgeInsets.only(top: 20.sp),

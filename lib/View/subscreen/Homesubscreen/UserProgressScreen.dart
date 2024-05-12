@@ -61,7 +61,7 @@ class _OnPrcessTapState extends State<UserProgressScreen> {
                         "Engagement Rate",
                         color: ColorHandler.normalFont,
                         textAlign: TextAlign.start,
-                        fontsize: 22.sp,
+                        fontsize: 20.sp,
                         fontweight: FontWeight.bold,
                       ),
                     ),
