@@ -7,14 +7,14 @@ import '../../coreRes/color_handler.dart';
 import '../../coreRes/font-handler.dart';
 import 'ChatBotChatScreen.dart';
 
-class CommunityPage extends StatefulWidget {
-  const CommunityPage({super.key, this.UserConnectionsSnapshot,});
+class CommunityChatPage extends StatefulWidget {
+  const CommunityChatPage({super.key, this.UserConnectionsSnapshot,});
   final UserConnectionsSnapshot;
   @override
-  State<CommunityPage> createState() => _CommunityPageState();
+  State<CommunityChatPage> createState() => _CommunityPageState();
 }
 
-class _CommunityPageState extends State<CommunityPage> {
+class _CommunityPageState extends State<CommunityChatPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
 

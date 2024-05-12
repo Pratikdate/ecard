@@ -9,14 +9,14 @@ import '../../widges/VideoPlayerScreen.dart';
 
 
 
-class LearningPage extends StatefulWidget {
-  const LearningPage({super.key});
+class SocialPage extends StatefulWidget {
+  const SocialPage({super.key});
 
   @override
-  State<LearningPage> createState() => _LearningPageState();
+  State<SocialPage> createState() => _LearningPageState();
 }
 
-class _LearningPageState extends State<LearningPage> {
+class _LearningPageState extends State<SocialPage> {
 
 
   MaterialStatesController _materialStatesController=MaterialStatesController();
