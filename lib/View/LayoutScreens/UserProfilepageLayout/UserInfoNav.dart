@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../main.dart';
 import '../../coreRes/color_handler.dart';
 import '../../coreRes/icon_handler.dart';
 import '../../subscreen/authenticat/login.dart';
@@ -84,7 +82,7 @@ class _UserInfoNavState extends State<UserInfoNav> {
               icon: IconHandler.logout,
               title: "Logout",
               onPressed: () async {
-                //Phoenix.rebirth(context);
+
                 await FirebaseAuth.instance.signOut();
 
 

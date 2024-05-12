@@ -6,12 +6,14 @@ import 'package:image_picker/image_picker.dart';
 import '../subscreen/myProfile/update_profile_screen.dart';
 import '../subscreen/myProfile/virtual_profile_page.dart';
 
-
 class ImagePicker_ extends StatefulWidget {
-  const ImagePicker_({super.key,this.isUpdateProfile=false,this.isVirtualProfile=false,});
+  const ImagePicker_({
+    super.key,
+    this.isUpdateProfile = false,
+    this.isVirtualProfile = false,
+  });
   final bool isUpdateProfile;
   final bool isVirtualProfile;
-
 
   @override
   State<ImagePicker_> createState() => _ImagePickerState();
@@ -22,8 +24,7 @@ class _ImagePickerState extends State<ImagePicker_> {
 
   Future _pickImage() async {
     final pickedImage =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
-
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
       setState(() {
@@ -37,40 +38,38 @@ class _ImagePickerState extends State<ImagePicker_> {
       CroppedFile? cropped = await ImageCropper().cropImage(
           cropStyle: CropStyle.circle,
           sourcePath: imageFile!.path,
-          aspectRatioPresets:
-          [
+          aspectRatioPresets: [
             CropAspectRatioPreset.square,
-            
           ],
-
           uiSettings: [
-          AndroidUiSettings(
-          toolbarTitle: 'Crop',
-          cropGridColor: Colors.black,
-          initAspectRatio: CropAspectRatioPreset.original,
-          lockAspectRatio: false),
-          IOSUiSettings(title: 'Crop')
-    ]);
+            AndroidUiSettings(
+                toolbarTitle: 'Crop',
+                cropGridColor: Colors.black,
+                initAspectRatio: CropAspectRatioPreset.original,
+                lockAspectRatio: false),
+            IOSUiSettings(title: 'Crop')
+          ]);
 
-    if (cropped != null) {
-    setState(() {
-    imageFile = File(cropped.path);
-    if(widget.isUpdateProfile) {
-      UpdateProfileScreen.croppedPath = cropped.path;
+      if (cropped != null) {
+        setState(() {
+          imageFile = File(cropped.path);
+          if (widget.isUpdateProfile) {
+            UpdateProfileScreen.croppedPath = cropped.path;
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UpdateProfileScreen()));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => UpdateProfileScreen()));
+          }
+          if (widget.isVirtualProfile) {
+            VirtualProfileScreen.croppedPath = cropped.path;
+
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const VirtualProfileScreen()));
+          }
+        });
+      }
     }
-    if(widget.isVirtualProfile){
-      VirtualProfileScreen.croppedPath = cropped.path;
-
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const VirtualProfileScreen()));
-    }
-
-
-    });
-    }
-  }
   }
 
   void _clearImage() {
@@ -83,31 +82,36 @@ class _ImagePickerState extends State<ImagePicker_> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: const Text("Crop Your Image")),
+          backgroundColor: Colors.black,
+          iconTheme: IconThemeData(color: Colors.white),
+          title: const Text(
+            "Crop Your Image",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
         body: Column(
           children: [
             Expanded(
                 flex: 3,
                 child: imageFile != null
                     ? Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Image.file(imageFile!))
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Image.file(imageFile!))
                     : const Center(
-                  child: Text("Add a picture"),
-                )),
+                        child: Text("Add a picture"),
+                      )),
             Expanded(
                 child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildIconButton(icon: Icons.add, onpressed: _pickImage),
-                      _buildIconButton(icon: Icons.crop, onpressed: _cropImage),
-                      _buildIconButton(icon: Icons.clear, onpressed: _clearImage),
-                    ],
-                  ),
-                ))
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildIconButton(icon: Icons.add, onpressed: _pickImage),
+                  _buildIconButton(icon: Icons.crop, onpressed: _cropImage),
+                  _buildIconButton(icon: Icons.clear, onpressed: _clearImage),
+                ],
+              ),
+            ))
           ],
         ));
   }
@@ -125,4 +129,4 @@ class _ImagePickerState extends State<ImagePicker_> {
           color: Colors.white,
         ));
   }
-} 
+}
