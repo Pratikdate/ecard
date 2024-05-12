@@ -20,11 +20,11 @@
 
 # 🎧Introduction <a name="introduction"></a>
 
-Monitor is a comprehensive platform designed to empower individuals to manage and optimize their personal brand online. It provides real-time insights into your online presence, helping you shape a positive and authentic digital identity.
+Monitor: Manage and refine your online brand.  This comprehensive platform provides real-time analytics to help you understand your online footprint. Actionable insights empower you to strategically manage and optimize your presence across the web, fostering a positive and genuine digital identity.
 
 ## Vision <a name="vision"></a>
 
-Our vision is to revolutionize how individuals perceive and manage their personal brand in the digital age. We aim to create a platform where users can actively use their online presence to achieve their personal and professional goals, feel empowered, and make meaningful connections.
+We envision a future where everyone can leverage their online presence. Monitor empowers individuals to transform how they perceive and manage their personal brand.  Unlock your full potential by actively using your online footprint to achieve your goals, build meaningful connections, and feel empowered in the digital age.
 
 ## Features <a name="features"></a>
 
@@ -59,20 +59,25 @@ To get started with Svanugrahaka, follow these steps:
 
 ## Contribution <a name="contributing"></a>
 
-We welcome contributions from the community! If you'd like to contribute to Svanugrahaka, please fork the repository, make your changes, and submit a pull. For major changes, please open an issue first to discuss the proposed changes.
+Help us build Svanugrahaka even better! We thrive on community contributions. Here's how you can get involved:
+
+1) **Fork the repository**: This creates your own copy to make changes in.
+2) **Make your changes**: Code away! We welcome bug fixes, new features, and improvements.
+3) **Submit a pull request (PR)**: Share your changes for review and merging into the main project.
+4) **For major changes, discuss first**: Thinking of a big addition? Open an issue to chat about it before diving in. This helps ensure your efforts align with the project's direction.
 
 <a href="https://github.com/Pratikdate/Monitor/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Pratikdate/Monitor" />
 </a>
 
-# <center>This Project is a part of GSSoC'24</center>
+# <center>This Project is a part of GSSoC'24.</center>
 
 <img src="https://imgur.com/wuiJXqr.png"/>
 *Thank you for being a part of the monitor project.*
 
 *And dont forget to give star to repo*
 
-*For more information join monitor descord server* [monitor server](https://discord.gg/JK4qnXSZ)
+*For more information join monitor discord server* [monitor server](https://discord.gg/JK4qnXSZ)
 
 <p align="right"><a href="#top">Back to top ⬆</a></p>
 
