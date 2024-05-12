@@ -1,4 +1,5 @@
 
+import "package:Monitor/View/subscreen/Homesubscreen/FriendsActivityScreen.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
@@ -27,7 +28,7 @@ class ActivitesBar extends StatelessWidget {
         child: InkWell(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AnalysisScreen(isanalysis: false,isactivity: true,)));
+                MaterialPageRoute(builder: (context) => const FriendsActivityScreen()));
           },
           child: Card(
             color: (isChatWidge)

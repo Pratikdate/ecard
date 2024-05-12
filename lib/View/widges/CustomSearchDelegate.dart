@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../Model/snapshot_handler.dart';
 import '../coreRes/color_handler.dart';
-import '../subscreen/Comunity/community.dart';
+import '../subscreen/Comunity/CommunityChatScreen.dart';
 
 
 class CustomSearchDelegate extends SearchDelegate {

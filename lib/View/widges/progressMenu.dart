@@ -1,4 +1,6 @@
 
+import 'package:Monitor/View/subscreen/Homesubscreen/UserProgressScreen.dart';
+import 'package:Monitor/View/subscreen/myProfile/profiles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,7 +30,7 @@ class ProgressMenu extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AnalysisScreen(isanalysis: false,isprogress: true,)));
+              MaterialPageRoute(builder: (context) => UserProgressScreen()));
         },
         child: Stack(
           children:[

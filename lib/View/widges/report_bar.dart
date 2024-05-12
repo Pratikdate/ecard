@@ -1,4 +1,6 @@
 
+import "package:Monitor/View/subscreen/Homesubscreen/FriendsActivityScreen.dart";
+import "package:Monitor/View/subscreen/myProfile/profiles.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
@@ -6,7 +8,6 @@ import "../chart_screens/CircularProgress.dart";
 import "../chart_screens/activty_chart.dart";
 import "../coreRes/color_handler.dart";
 import "../coreRes/font-handler.dart";
-import "../subscreen/homeOntap/onActivitytap.dart";
 
 class ReportBar extends StatelessWidget {
   const ReportBar(
@@ -22,7 +23,7 @@ class ReportBar extends StatelessWidget {
 
   Route _createRoute() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => const OnActivityTap(),
+      pageBuilder: (context, animation, secondaryAnimation) => const FriendsActivityScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
 
         return child;

@@ -7,7 +7,6 @@ import '../../coreRes/font-handler.dart';
 import '../../coreRes/icon_handler.dart';
 import '../authenticat/linkedin.dart';
 import '../authenticat/twitter.dart';
-import '../homeOntap/onActivitytap.dart';
 
 
 class UserProfilesScreen extends StatefulWidget {

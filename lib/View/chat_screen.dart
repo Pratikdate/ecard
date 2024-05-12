@@ -1,6 +1,6 @@
 import 'package:Monitor/View/subscreen/Comunity/ChatBotChatScreen.dart';
-import 'package:Monitor/View/subscreen/Comunity/community.dart';
-import 'package:Monitor/View/subscreen/Comunity/learnings.dart';
+import 'package:Monitor/View/subscreen/Comunity/CommunityChatScreen.dart';
+import 'package:Monitor/View/subscreen/Comunity/SocialPost.dart';
 import 'package:Monitor/View/widges/CustomSearchDelegate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

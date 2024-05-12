@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -141,24 +142,24 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
       backgroundColor: ColorHandler.bgColor,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        padding: EdgeInsets.symmetric(horizontal: 30.w),
+        padding: EdgeInsets.symmetric(horizontal: 30.sp),
         child: Stack(
           children: [
             Column(
               children: [
                 Stack(children: [
                   SizedBox(
-                    height: 280.h,
-                    width: 460.w,
+                    height: 260.r,
+                    width: 440.r,
                     child: Container(
                       clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
                         color: Colors.amber,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(20.sp),
                       ),
                       child: SizedBox(
-                        height: 20.h,
-                        width: 20.w,
+                        height: 220.r,
+                        width: 220.r,
                         child: image!=null? Image.file(image!):Image.network(
                           CorporateLogo,
 
@@ -170,8 +171,8 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                     bottom: 0,
                     right: 0,
                     child: Container(
-                      width: 26.w,
-                      height: 26.h,
+                      width: 26.r,
+                      height: 26.r,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100.sp),
                           color: Colors.yellow),
@@ -186,20 +187,21 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                         icon: Icon(
                           IconHandler.alternate_pencil,
                           color: ColorHandler.bgColor,
-                          size: 20,
+                          size: 20.r,
                         ),
                       ),
                     ),
                   ),
                 ]),
                 SizedBox(
-                  height: 20.h,
+                  height: 30.r,
                 ),
                 Stack(children: [
                   SizedBox(
-                      height: 300.h,
-                      width: 460.w,
+                      height: 300.r,
+                      width: 440.r,
                       child: Card(
+                        margin: EdgeInsets.only(top: 10.sp),
                         elevation: 6.0,
                         color: Colors.amber,
                         clipBehavior: Clip.hardEdge,
@@ -217,7 +219,7 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
 
                           children: [
                              SizedBox(
-                               height: 30,
+                               height: 30.r,
                                child: TextField(
                                  controller: controller1,
                                  textAlign: TextAlign.center,
@@ -234,7 +236,7 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                                ),
                              ),
                             SizedBox(
-                              height: 40,
+                              height: 40.r,
                               child: TextField(
 
                                 controller: controller2,
@@ -247,7 +249,7 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                               ),
                             ),
                             SizedBox(
-                              height: 120,
+                              height: 120.r,
                               child: TextField(
 
                                 controller: controller3,
@@ -275,16 +277,16 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                               title,
                               color: ColorHandler.bgColor,
                               textAlign: TextAlign.center,
-                              fontsize: 40.sp,
+                              fontsize: 30.r,
                               fontweight: FontWeight.bold,
                             ),
                             FontHandler(subtitle,
                                 color: ColorHandler.bgColor,
                                 textAlign: TextAlign.center,
-                                fontsize: 25.sp,
+                                fontsize: 20.r,
                                 fontweight: FontWeight.bold),
                             SizedBox(
-                              height: 125,
+                              height: 160.r,
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 10.w, vertical: 10.h),
@@ -293,7 +295,7 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                                   maxLines: 6,
                                   softWrap: true,
                                   style: TextStyle(
-                                      fontSize: 16.0,
+                                      fontSize: 16.0.r,
                                       color: ColorHandler.bgColor),
                                 ),
                               ),
@@ -305,8 +307,8 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                     bottom: 0,
                     right: 0,
                     child: Container(
-                      width: 26.w,
-                      height: 26.h,
+                      width: 26.r,
+                      height: 26.r,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100.sp),
                           color: Colors.yellow),
@@ -334,7 +336,7 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
                         icon: Icon(
                           EditPress? IconHandler.submit:IconHandler.alternate_pencil,
                           color: ColorHandler.bgColor,
-                          size: 20,
+                          size: 20.r,
                         ),
                       ),
                     ),
@@ -372,27 +374,31 @@ class _VirtualProfileScreenState extends State<VirtualProfileScreen> {
 
               ],
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: height.sp / 2.sp - 210.sp),
-              alignment: AlignmentDirectional.center,
-              child: Stack(children: [
-                Container(
-                  padding: EdgeInsets.all(8.sp),
-                  width: 180.w,
-                  height: 180.h,
-                  decoration: BoxDecoration(
-                    color: ColorHandler.normalFont,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.network(
-                      Userimg
+            Positioned(
+              bottom: 460.r,
+              left: 80.r,
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 0.330.r),
+                alignment: AlignmentDirectional.center,
+                child: Stack(children: [
+                  Container(
+                    padding: EdgeInsets.all(8.sp),
+                    width: 140.r,
+                    height: 140.r,
+                    decoration: BoxDecoration(
+                      color: ColorHandler.normalFont,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.network(
+                        Userimg
+                      ),
                     ),
                   ),
-                ),
 
-              ]),
+                ]),
+              ),
             ),
           ],
         ),
@@ -421,8 +427,8 @@ class SeeMore extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: 60.h,
-        width: 400.w,
+        height: 54.r,
+        width: 400.r,
         padding: EdgeInsets.symmetric(horizontal: 20.sp),
         decoration: BoxDecoration(
           color: ColorHandler.normalFont.withOpacity(0.3),
@@ -437,8 +443,8 @@ class SeeMore extends StatelessWidget {
             ),
             EditPress?
             SizedBox(
-              height: 50,
-              width: 240,
+              height: 50.r,
+              width: 240.r,
               child: TextField(
                 controller: controller,
                 textAlign: TextAlign.center,

@@ -8,6 +8,8 @@ class IdentityLogo extends StatefulWidget {
 }
 
 class _IdentityLogoState extends State<IdentityLogo> {
+
+
   @override
   Widget build(BuildContext context) {
     return const Placeholder();

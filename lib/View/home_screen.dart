@@ -1,19 +1,13 @@
 import 'package:Monitor/View/LayoutScreens/HomepageLayout/AppbarLayout.dart';
 import 'package:Monitor/View/LayoutScreens/HomepageLayout/ProgressLayout.dart';
 import 'package:Monitor/View/LayoutScreens/HomepageLayout/UserProgressBarLayout.dart';
-import 'package:Monitor/View/widges/activity_bar.dart';
-import 'package:Monitor/View/widges/CustomSearchDelegate.dart';
-import 'package:Monitor/View/widges/progressMenu.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'LayoutScreens/HomepageLayout/ActivitybarLayout.dart';
 import 'coreRes/color_handler.dart';
-import 'coreRes/font-handler.dart';
-import 'coreRes/icon_handler.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}); // Constructor for HomeScreen widget
