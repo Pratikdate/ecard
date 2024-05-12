@@ -32,8 +32,8 @@ class _ChatScreenState extends State<ChatScreen>
 
   // Screens to be displayed in each tab
   final List<Widget> _screens = [
-    const LearningPage(),
-    CommunityPage(
+    const SocialPage(),
+    CommunityChatPage(
       UserConnectionsSnapshot: FirebaseFirestore.instance
           .collection("User_Connections")
           .doc(FirebaseAuth.instance.currentUser!.uid) // Access the uid property from FirebaseAuth
