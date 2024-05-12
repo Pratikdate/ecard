@@ -22,7 +22,7 @@
 
 Monitor: Manage and refine your online brand.  This comprehensive platform provides real-time analytics to help you understand your online footprint. Actionable insights empower you to strategically manage and optimize your presence across the web, fostering a positive and genuine digital identity.
 
-## Vision <a name="vision"></a> > 🔍
+## Vision <a name="vision"></a> 🔍
 
 We envision a future where everyone can leverage their online presence. Monitor empowers individuals to transform how they perceive and manage their personal brand.  Unlock your full potential by actively using your online footprint to achieve your goals, build meaningful connections, and feel empowered in the digital age.
 
