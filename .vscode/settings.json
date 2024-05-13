@@ -1,6 +1,0 @@
-{
-    "git.ignoreLimitWarning": true,
-    "DockerRun.DisableDockerrc": true,
-    "DockerRun.DisableAutoGenerateConfig": true,
-    "java.configuration.updateBuildConfiguration": "disabled"
-}
