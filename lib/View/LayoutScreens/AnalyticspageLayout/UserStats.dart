@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../Resource/color_handler.dart';
+import '../../../Resource/font-handler.dart';
 import '../../chart_screens/CircularProgress.dart';
-import '../../coreRes/color_handler.dart';
-import '../../coreRes/font-handler.dart';
 
 class UserStats extends StatefulWidget {
   const UserStats({super.key

@@ -1,34 +1,92 @@
-
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../Model/snapshot_handler.dart';
-import '../coreRes/color_handler.dart';
-import '../subscreen/Comunity/CommunityChatScreen.dart';
+import '../subscreen/Comunity/ActivitesBar.dart';
+
+
+class SearchController extends GetxController {
+  RxList searchTerms = <Map<String, dynamic>>[].obs;
+
+  // Add the getter for searchTerms
+  List get getSearchTerms => searchTerms.toList();
+
+
+  Future<void> loadData(String query) async {
+    searchTerms.clear();
+
+    await FirebaseFirestore.instance.collection("User_Profiles").get().then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        if (data['name'].toString().toLowerCase().contains(query.toLowerCase())) {
+          searchTerms.add(data);
+        }
+      });
+    });
+  }
+
+  Future<void> addToConnections(Map<String, dynamic> result) async {
+    final data = {
+      "name": result['name'].toString(),
+      "image": result['image'].toString(),
+      "uid": result['uid'].toString(),
+    };
+
+    await SnapShotHandler.SetData(
+        FirebaseFirestore.instance.collection('User_Connections').doc(FirebaseAuth.instance.currentUser?.uid).collection("Connections").doc(result['uid']),
+        data);
+  }
+}
+
 
 
 class CustomSearchDelegate extends SearchDelegate {
+  final searchController = Get.put(SearchController());
 
-
-  CustomSearchDelegate(){
-    _LoadData(query);
+  @override
+  Widget buildResults(BuildContext context) {
+    return Obx(() {
+      if (searchController.getSearchTerms.isEmpty) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      } else {
+        return ListView.builder(
+          itemCount: searchController.searchTerms.length,
+          itemBuilder: (context, index) {
+            var result = searchController.searchTerms[index];
+            return ListTile(
+              title: ActivitesBar(
+                FriendName: result['name'],
+                isforSearch: true,
+                ImgSrc: result['image'],
+                Uid: result['uid'],
+                onAddpress: () => searchController.addToConnections(result),
+                FriendLavel: '',
+              ),
+            );
+          },
+        );
+      }
+    });
   }
 
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return Container(); // Implement suggestions if needed
+  }
 
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: Icon(Icons.arrow_back),
+    );
+  }
 
-  // Demo list to show querying
-  List searchTerms = [
-
-  ];
-
-
-  // first overwrite to
-  // clear the search text
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -41,105 +99,14 @@ class CustomSearchDelegate extends SearchDelegate {
     ];
   }
 
-  // second overwrite to pop out of search menu
   @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        close(context, null);
-      },
-      icon: Icon(Icons.arrow_back),
-    );
+  void showResults(BuildContext context) {
+    searchController.loadData(query);
+    super.showResults(context);
   }
-  Future<void> _LoadData (dynamic query)  async {
-
-    await FirebaseFirestore.instance.collection("User_Profiles").get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        Map a = doc.data() as Map<String, dynamic>;
-        searchTerms.add(a);
-
-      });
-    });
-
-
-  }
-
-  Future<void> AddToConnections(dynamic result) async {
-    final data={
-      "name":result['name'].toString(),
-      "image": result['image'].toString(),
-      "uid": result['uid'].toString(),
-    };
-
-
-    await SnapShotHandler.SetData(
-        FirebaseFirestore.instance.collection('User_Connections')
-        .doc(auth.currentUser?.uid).collection("Connections").doc(result['uid']),data);
-
-    
-  }
-
-
-
-
-  // third overwrite to show query result
-  @override
-  Widget buildResults(BuildContext context) {
-    List matchQuery = [];
-
-
-
-    for (var re in searchTerms) {
-      if (re["name"]==query) {
-
-        matchQuery.add(re);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-
-        return ListTile(
-          
-          title:  ActivitesBar(
-            FriendName: result['name'],
-            isforSearch:true,
-            ImgSrc: result['image'],
-            Uid: result['uid'],
-            onAddpress:(){ AddToConnections(result);}, FriendLavel: '',
-
-          ),
-        );
-      },
-    );
-  }
-
-  // last overwrite to show the
-  // querying process at the runtime
 
   @override
-  Widget buildSuggestions(BuildContext context) {
-    List<String> matchQuery = [];
-    // for (var fruit in searchTerms) {
-    //   if (fruit.contains(query)) {
-    //     matchQuery.add(fruit);
-    //   }
-    // }
-    return ColoredBox(
-      color: ColorHandler.bgColor,
-      child: ListView.builder(
-
-        itemCount: matchQuery.length,
-        itemBuilder: (context, index) {
-          var result = matchQuery[index];
-          return ListTile(
-
-            title: Text(result),
-          );
-        },
-      ),
-    );
+  void showSuggestions(BuildContext context) {
+    // Implement suggestions if needed
   }
 }

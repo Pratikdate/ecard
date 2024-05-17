@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../coreRes/color_handler.dart';
-import '../../coreRes/font-handler.dart';
-import '../../coreRes/icon_handler.dart';
+import '../../../Resource/color_handler.dart';
+import '../../../Resource/font-handler.dart';
+import '../../../Resource/icon_handler.dart';
 import '../../widges/report_bar.dart';
 
 

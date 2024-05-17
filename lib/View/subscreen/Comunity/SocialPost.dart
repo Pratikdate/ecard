@@ -2,9 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
-
-import '../../coreRes/color_handler.dart';
-import '../../coreRes/font-handler.dart';
+import '../../../Resource/color_handler.dart';
+import '../../../Resource/font-handler.dart';
 import '../../widges/VideoPlayerScreen.dart';
 
 

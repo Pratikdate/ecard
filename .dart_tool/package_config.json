@@ -338,6 +338,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "get",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/get-4.6.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "google_fonts",
       "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-6.2.1",
       "packageUri": "lib/",
@@ -914,7 +920,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-05-09T18:44:57.540696Z",
+  "generated": "2024-05-15T15:29:29.203082Z",
   "generator": "pub",
   "generatorVersion": "3.3.2"
 }

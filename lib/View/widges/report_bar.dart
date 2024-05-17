@@ -4,10 +4,11 @@ import "package:Monitor/View/subscreen/myProfile/profiles.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
+import "../../Resource/color_handler.dart";
+import "../../Resource/font-handler.dart";
 import "../chart_screens/CircularProgress.dart";
 import "../chart_screens/activty_chart.dart";
-import "../coreRes/color_handler.dart";
-import "../coreRes/font-handler.dart";
+
 
 class ReportBar extends StatelessWidget {
   const ReportBar(

@@ -10,10 +10,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../Model/snapshot_handler.dart';
+import '../../../Resource/color_handler.dart';
+import '../../../Resource/font-handler.dart';
+import '../../../Resource/icon_handler.dart';
 import '../../QRScreens/image_picker.dart';
-import '../../coreRes/color_handler.dart';
-import '../../coreRes/font-handler.dart';
-import '../../coreRes/icon_handler.dart';
+
 
 class VirtualProfileScreen extends StatefulWidget {
   const VirtualProfileScreen({super.key});

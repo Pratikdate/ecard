@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Model/snapshot_handler.dart';
-import '../../coreRes/color_handler.dart';
-import '../../coreRes/icon_handler.dart';
+import '../../../Resource/color_handler.dart';
+import '../../../Resource/icon_handler.dart';
 import '../../subscreen/myProfile/update_profile_screen.dart';
 
 class UserprofileInfo extends StatefulWidget {

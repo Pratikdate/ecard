@@ -18,8 +18,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../Model/snapshot_handler.dart';
-import '../../coreRes/color_handler.dart';
-import '../../coreRes/icon_handler.dart';
+import '../../../Resource/color_handler.dart';
+import '../../../Resource/icon_handler.dart';
+
 
 class ChatScreenHandler extends StatefulWidget {
   const ChatScreenHandler(

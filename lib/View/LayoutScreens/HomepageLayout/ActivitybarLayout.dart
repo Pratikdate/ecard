@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:Monitor/View/LayoutScreens/HomepageLayout/AppbarLayout.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../coreRes/color_handler.dart';
-import '../../coreRes/font-handler.dart';
+import '../../../Resource/color_handler.dart';
+import '../../../Resource/font-handler.dart';
 import '../../home_screen.dart';
 import 'package:Monitor/View/widges/activity_bar.dart';
 
@@ -37,29 +37,29 @@ class ActivitybarLayout extends StatelessWidget {
                       children: <Widget>[
                         // Individual friend activity bars
                         ActivitesBar(
-                          FriendName: "Gaspard",
-                          FriendLavel: "Lv2",
-                          ImgSrc: 'assets/img1.jpg',
+                          friendName: "Gaspard",
+                          friendLevel: "Lv2",
+                          imgSrc: 'assets/img1.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Rapier",
-                          FriendLavel: "Lv3",
-                          ImgSrc: 'assets/img1.jpg',
+                          friendName: "Rapier",
+                          friendLevel: "Lv3",
+                          imgSrc: 'assets/img1.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Bhavika",
-                          FriendLavel: "Lv4",
-                          ImgSrc: 'assets/img3.jpg',
+                          friendName: "Bhavika",
+                          friendLevel: "Lv4",
+                          imgSrc: 'assets/img3.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Dev",
-                          FriendLavel: "Lv3",
-                          ImgSrc: 'assets/img4.jpg',
+                          friendName: "Dev",
+                          friendLevel: "Lv3",
+                          imgSrc: 'assets/img4.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Arjun",
-                          FriendLavel: "Lv1",
-                          ImgSrc: 'assets/img5.jpg',
+                          friendName: "Arjun",
+                          friendLevel: "Lv1",
+                          imgSrc: 'assets/img5.jpg',
                         ),
                       ],
                     ),
@@ -75,29 +75,29 @@ class ActivitybarLayout extends StatelessWidget {
                       children: <Widget>[
                         // Individual friend activity bars
                         ActivitesBar(
-                          FriendName: "Gaspard",
-                          FriendLavel: "Lv2",
-                          ImgSrc: 'assets/img1.jpg',
+                          friendName: "Gaspard",
+                          friendLevel: "Lv2",
+                          imgSrc: 'assets/img1.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Rapier",
-                          FriendLavel: "Lv3",
-                          ImgSrc: 'assets/img1.jpg',
+                          friendName: "Rapier",
+                          friendLevel: "Lv3",
+                          imgSrc: 'assets/img1.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Bhavika",
-                          FriendLavel: "Lv4",
-                          ImgSrc: 'assets/img3.jpg',
+                          friendName: "Bhavika",
+                          friendLevel: "Lv4",
+                          imgSrc: 'assets/img3.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Dev",
-                          FriendLavel: "Lv3",
-                          ImgSrc: 'assets/img4.jpg',
+                          friendName: "Dev",
+                          friendLevel: "Lv3",
+                          imgSrc: 'assets/img4.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Arjun",
-                          FriendLavel: "Lv1",
-                          ImgSrc: 'assets/img5.jpg',
+                          friendName: "Arjun",
+                          friendLevel: "Lv1",
+                          imgSrc: 'assets/img5.jpg',
                         ),
                       ],
                     ),
@@ -114,29 +114,29 @@ class ActivitybarLayout extends StatelessWidget {
                       children: <Widget>[
                         // Individual friend activity bars
                         ActivitesBar(
-                          FriendName: "Gaspard",
-                          FriendLavel: "Lv2",
-                          ImgSrc: 'assets/img1.jpg',
+                          friendName: "Gaspard",
+                          friendLevel: "Lv2",
+                          imgSrc: 'assets/img1.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Rapier",
-                          FriendLavel: "Lv3",
-                          ImgSrc: 'assets/img1.jpg',
+                          friendName: "Rapier",
+                          friendLevel: "Lv3",
+                          imgSrc: 'assets/img1.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Bhavika",
-                          FriendLavel: "Lv4",
-                          ImgSrc: 'assets/img3.jpg',
+                          friendName: "Bhavika",
+                          friendLevel: "Lv4",
+                          imgSrc: 'assets/img3.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Dev",
-                          FriendLavel: "Lv3",
-                          ImgSrc: 'assets/img4.jpg',
+                          friendName: "Dev",
+                          friendLevel: "Lv3",
+                          imgSrc: 'assets/img4.jpg',
                         ),
                         ActivitesBar(
-                          FriendName: "Arjun",
-                          FriendLavel: "Lv1",
-                          ImgSrc: 'assets/img5.jpg',
+                          friendName: "Arjun",
+                          friendLevel: "Lv1",
+                          imgSrc: 'assets/img5.jpg',
                         ),
                       ],
                     ),

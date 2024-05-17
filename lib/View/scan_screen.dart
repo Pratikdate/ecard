@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../Resource/color_handler.dart';
 import 'QRScreens/ScanQRCode.dart';
-import 'coreRes/color_handler.dart';
 
 
 class QRScanScreen extends StatefulWidget {

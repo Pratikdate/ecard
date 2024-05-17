@@ -3,8 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:twitter_login/twitter_login.dart';
-import '../../coreRes/color_handler.dart';
-import '../../routes/dashboard.dart';
+
+import '../../../Resource/color_handler.dart';
+import '../../../Routes/dashboard.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -195,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
     if (userCredential.user != null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("successfully login"),
         backgroundColor: Colors.green,
         elevation: 10,

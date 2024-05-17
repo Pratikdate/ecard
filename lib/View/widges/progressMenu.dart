@@ -3,11 +3,9 @@ import 'package:Monitor/View/subscreen/Homesubscreen/UserProgressScreen.dart';
 import 'package:Monitor/View/subscreen/myProfile/profiles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../analysis_screen.dart';
+import '../../Resource/color_handler.dart';
+import '../../Resource/font-handler.dart';
 import '../chart_screens/activty_chart.dart';
-import '../coreRes/color_handler.dart';
-import '../coreRes/font-handler.dart';
 import 'activity_bar.dart';
 
 class ProgressMenu extends StatelessWidget {
@@ -77,7 +75,7 @@ class ProgressMenu extends StatelessWidget {
               heightFactor: 50.r,
               child: Padding(
                 padding: EdgeInsets.all(4.0.r),
-                child: ActivityChart(),
+                child: ActivityChart(engagementRate: 0,),
               ),
             ),
 

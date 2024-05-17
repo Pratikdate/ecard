@@ -4,7 +4,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class ActivityChart extends StatefulWidget {
-  const ActivityChart({super.key, this.isanalysis = false});
+  const ActivityChart({super.key, this.isanalysis = false, required double engagementRate});
   final bool isanalysis;
 
   @override

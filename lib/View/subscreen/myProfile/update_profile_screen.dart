@@ -7,9 +7,9 @@ import 'dart:async';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../../Model/snapshot_handler.dart';
+import '../../../Resource/color_handler.dart';
+import '../../../Resource/icon_handler.dart';
 import '../../QRScreens/image_picker.dart';
-import '../../coreRes/color_handler.dart';
-import '../../coreRes/icon_handler.dart';
 import '../../my_profile.dart';
 
 class UpdateProfileScreen extends StatefulWidget {

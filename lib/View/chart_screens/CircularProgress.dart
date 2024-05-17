@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../coreRes/color_handler.dart';
+import '../../Resource/color_handler.dart';
 
 
 

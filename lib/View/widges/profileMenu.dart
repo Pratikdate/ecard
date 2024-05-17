@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
-import '../coreRes/color_handler.dart';
+import '../../Resource/color_handler.dart';
+
 
 class ProfileMenuWidget extends StatelessWidget {
   final IconData icon;

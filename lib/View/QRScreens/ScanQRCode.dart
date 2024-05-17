@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../coreRes/color_handler.dart';
+import '../../Resource/color_handler.dart';
 
 
 class QRCodeScannerScreen extends StatefulWidget {

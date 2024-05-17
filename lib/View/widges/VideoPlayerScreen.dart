@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-import '../coreRes/color_handler.dart';
-import '../coreRes/icon_handler.dart';
-
+import '../../Resource/color_handler.dart';
+import '../../Resource/icon_handler.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   VideoPlayerScreen({super.key});
