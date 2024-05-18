@@ -236,6 +236,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "fixnum",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///C:/src/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -309,7 +315,7 @@
     },
     {
       "name": "flutter_screenutil",
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_screenutil-5.9.0",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_screenutil-5.9.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -429,7 +435,7 @@
     },
     {
       "name": "image_picker_android",
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.11",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+1",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -441,7 +447,7 @@
     },
     {
       "name": "image_picker_ios",
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_ios-0.8.10+1",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_ios-0.8.11+2",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -507,9 +513,9 @@
     },
     {
       "name": "linkedin_login",
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/linkedin_login-2.3.1",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/linkedin_login-3.0.5",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.3"
     },
     {
       "name": "linkify",
@@ -579,9 +585,9 @@
     },
     {
       "name": "path_provider_foundation",
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_foundation-2.3.2",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_foundation-2.4.0",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.2"
     },
     {
       "name": "path_provider_linux",
@@ -716,6 +722,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "sprintf",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/sprintf-7.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "stack_trace",
       "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.1",
       "packageUri": "lib/",
@@ -783,7 +795,7 @@
     },
     {
       "name": "url_launcher_ios",
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_ios-6.2.5",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_ios-6.3.0",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -795,9 +807,9 @@
     },
     {
       "name": "url_launcher_macos",
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_macos-3.1.0",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_macos-3.2.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.1"
     },
     {
       "name": "url_launcher_platform_interface",
@@ -819,9 +831,9 @@
     },
     {
       "name": "uuid",
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-3.0.7",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-4.4.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "vector_math",
@@ -843,7 +855,7 @@
     },
     {
       "name": "video_player_avfoundation",
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/video_player_avfoundation-2.5.7",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/video_player_avfoundation-2.6.1",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -897,7 +909,7 @@
     },
     {
       "name": "webview_flutter_wkwebview",
-      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_wkwebview-3.13.0",
+      "rootUri": "file:///C:/Users/USER/AppData/Local/Pub/Cache/hosted/pub.dev/webview_flutter_wkwebview-3.13.1",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -920,7 +932,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-05-15T15:29:29.203082Z",
+  "generated": "2024-05-17T15:08:50.233505Z",
   "generator": "pub",
   "generatorVersion": "3.3.2"
 }

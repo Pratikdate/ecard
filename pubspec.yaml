@@ -53,7 +53,7 @@ dependencies:
   firebase_storage: ^11.6.0
   google_sign_in: ^6.2.1
   twitter_login: ^4.4.2
-  linkedin_login: ^2.3.1
+  linkedin_login: ^3.0.5
   firebase_app_check: ^0.2.1+12
   flutter_chat_ui: ^1.6.11
   file_picker: ^6.1.1

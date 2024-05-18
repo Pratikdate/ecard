@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,13 +17,14 @@ void main() async {
 
       //Use when you want to work on design
 
-      //     DevicePreview(
-      //   enabled: true,
-      //   tools: const [
-      //     ...DevicePreview.defaultTools,
-      //   ],
-      //   builder: (BuildContext context) => MyApp(),
-      // ));
+  //         DevicePreview(
+  //       enabled: true,
+  //       tools: const [
+  //         ...DevicePreview.defaultTools,
+  //       ],
+  //       builder: (BuildContext context) => MyApp(),
+  //     )
+  // );
       Phoenix(child: MyApp())
   );
 }

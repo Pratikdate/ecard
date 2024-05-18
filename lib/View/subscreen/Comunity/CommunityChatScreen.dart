@@ -26,16 +26,20 @@ class CommunityChatPage extends StatelessWidget {
         }
 
         final List<Map<String, dynamic>> storedocs = [];
-        snapshot.data!.docs.forEach((DocumentSnapshot document) {
-          Map<String, dynamic> a = document.data() as Map<String, dynamic>;
+        try {
+          snapshot.data!.docs.forEach((DocumentSnapshot document) {
+            Map<String, dynamic> a = document.data() as Map<String, dynamic>;
 
-          if (a["uid"] != controller.auth.currentUser?.uid) {
-            storedocs.add(a);
-            a['id'] = document.id;
-          }
-        });
+            if (a["uid"] != controller.auth.currentUser?.uid) {
+              storedocs.add(a);
+              a['id'] = document.id;
+            }
+          });
+        }catch(e){}
 
-        return SizedBox(
+        return storedocs.isEmpty?
+            const SizedBox()
+            :SizedBox(
           height: height,
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,

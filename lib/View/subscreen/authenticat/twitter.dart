@@ -1,11 +1,7 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:twitter_login/twitter_login.dart';
-
-
-
-
-
 
 class TwitterAuth extends StatefulWidget {
   const TwitterAuth({super.key});
@@ -15,151 +11,85 @@ class TwitterAuth extends StatefulWidget {
 }
 
 class _TwitterAuthState extends State<TwitterAuth> {
-  final String apiKey = 'wWE3qPOcKbbYP9fLwCiq7oOfj';
-  final String apiSecretKey = 'axV3SS9gtTMLb7ympKj3DGrmTzJ5hMCIX2luucq9OnjjOj4qDt';
+  final String apiKey = 'kQXviMc8iMT86xA9J48hDY5Hu';
+  final String apiSecretKey = 'dS8NEEqpQhT736EGnsSpf63aBI0IFcJM2qDo5NNnHB5MRvsJlM';
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
-    Widget build(BuildContext context) {
-      return MaterialApp(
-        home: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: const Text('twitter_login example app'),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ListView(
-              children: [
-                const SizedBox(height: 24),
-                const Text(
-                  'Twitter API v1.1 is not available when creating a new application in twitter developer from November 15, 2021.\n'
-                      'Check the Twitter Developer to see if it supports v1.1 or v2.',
-                ),
-                const SizedBox(height: 24),
-                // Image.asset(
-                //   'assets/twitter_dashboard.png',
-                //   width: double.infinity,
-                // ),
-                const SizedBox(height: 24),
-                Center(
-                  child: TextButton(
-                    child: const Text('use Twitter API v1'),
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
-                      minimumSize: MaterialStateProperty.all<Size>(const Size(160, 48)),
-                    ),
-                    onPressed: () async {
-                      await login();
-                    },
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: const Text('Twitter Login Example'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: ListView(
+            children: [
+              const SizedBox(height: 24),
+              const Text(
+                'Twitter API v1.1 is not available when creating a new application in Twitter Developer from November 15, 2021.\n'
+                    'Check the Twitter Developer to see if it supports v1.1 or v2.',
+              ),
+              const SizedBox(height: 24),
+
+              const SizedBox(height: 24),
+              Center(
+                child: TextButton(
+                  child: const Text('Use Twitter API v2.0'),
+                  style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+                    minimumSize: MaterialStateProperty.all<Size>(const Size(160, 48)),
                   ),
+                  onPressed: () async {
+                    await loginV2();
+                  },
                 ),
-                const SizedBox(height: 24),
-
-                Center(
-                  child: TextButton(
-                    child: const Text('use Twitter API v2.0'),
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
-                      minimumSize: MaterialStateProperty.all<Size>(const Size(160, 48)),
-                    ),
-                    onPressed: () async {
-                      await loginV2();
-                    },
-                  ),
-                ),
-
-
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      );
-
+      ),
+    );
   }
 
-  Future login() async {
+  Future<void> loginV2() async {
     final twitterLogin = TwitterLogin(
-      /// Consumer API keys
       apiKey: apiKey,
-
-      /// Consumer API Secret keys
       apiSecretKey: apiSecretKey,
-
-      /// Registered Callback URLs in TwitterApp
-      /// Android is a deeplink
-      /// iOS is a URLScheme
-      redirectURI: 'https://pratikdate.github.io/',
+      redirectURI: 'com.example.ecard://',
     );
 
-    /// Forces the user to enter their credentials
-    /// to ensure the correct users account is authorized.
-    /// If you want to implement Twitter account switching, set [force_login] to true
-    /// login(forceLogin: true);
-    final authResult = await twitterLogin.login();
+    final authResult = await twitterLogin.loginV2();
     switch (authResult.status) {
       case TwitterLoginStatus.loggedIn:
-      // success
         print('====== Login success ======');
-        print(authResult.authToken);
-        print(authResult.authTokenSecret);
+        //await _signInWithTwitter(authResult);
         break;
       case TwitterLoginStatus.cancelledByUser:
-      // cancel
         print('====== Login cancel ======');
         break;
       case TwitterLoginStatus.error:
-      case null:
-      // error
+      default:
         print('====== Login error ======');
         break;
     }
   }
 
-
-
-   Future loginV2() async {
-     final twitterLogin = TwitterLogin(
-       /// Consumer API keys
-       apiKey: apiKey,
-
-       /// Consumer API Secret keys
-       apiSecretKey: apiSecretKey,
-
-       /// Registered Callback URLs in TwitterApp
-       /// Android is a deeplink
-       /// iOS is a URLScheme
-       redirectURI: 'com.example.ecard',
-     );
-
-     /// Forces the user to enter their credentials
-     /// to ensure the correct users account is authorized.
-     /// If you want to
-     /// implement Twitter account switching, set [force_login] to true
-     /// login(forceLogin: true);
-     final authResult = await twitterLogin.loginV2();
-
-     switch (authResult) {
-       case TwitterLoginStatus.loggedIn:
-       // success
-         print('====== Login success ======');
-         break;
-       case TwitterLoginStatus.cancelledByUser:
-       // cancel
-         print('====== Login cancel ======');
-         break;
-       case TwitterLoginStatus.error:
-       case null:
-       // error
-         print('====== Login error ======');
-         break;
-     }
-   }
-
+  // Future<void> _signInWithTwitter(TwitterLoginResult authResult) async {
+  //   final twitterAuthCredential = TwitterAuthProvider.credential(
+  //     accessToken: authResult.authToken!,
+  //     secret: authResult.authTokenSecret!,
+  //   );
+  //
+  //   try {
+  //     final userCredential = await _auth.signInWithCredential(twitterAuthCredential);
+  //     print('Signed in successfully as: ${userCredential.user?.displayName}');
+  //   } catch (e) {
+  //     print('Failed to sign in with Twitter: $e');
+  //   }
+  // }
 }
-
-
-
-

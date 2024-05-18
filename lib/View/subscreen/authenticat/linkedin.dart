@@ -8,11 +8,9 @@ import 'package:linkedin_login/linkedin_login.dart';
 
 
 
-const String redirectUrl = 'https://pratikdate.github.io/';
+const String redirectUrl = 'com.example.ecard://';
 const String clientId = '77ksdosm40ksnb';
-const String clientSecret = '6fIqrhHJUYatOwnX';
-
-
+const String clientSecret = '77ksdosm40ksnb';
 
 
 class LinkedinAuth extends StatefulWidget {
@@ -22,9 +20,7 @@ class LinkedinAuth extends StatefulWidget {
   State<LinkedinAuth> createState() => _LinkedinAuthState();
 }
 
-
 class _LinkedinAuthState extends State<LinkedinAuth> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,11 +35,8 @@ class _LinkedinAuthState extends State<LinkedinAuth> {
           appBar: AppBar(
             bottom: const TabBar(
               tabs: [
-                Tab(
-                  icon: Icon(Icons.person),
-                  text: 'Profile',
-                ),
-                Tab(icon: Icon(Icons.text_fields), text: 'Auth code')
+                Tab(icon: Icon(Icons.person), text: 'Profile'),
+                Tab(icon: Icon(Icons.text_fields), text: 'Auth code'),
               ],
             ),
             title: const Text('LinkedIn Authorization'),
@@ -51,8 +44,7 @@ class _LinkedinAuthState extends State<LinkedinAuth> {
           body: const TabBarView(
             children: [
               LinkedInProfileExamplePage(),
-              LinkedInAuthCodeExamplePage()
-
+              LinkedInAuthCodeExamplePage(),
             ],
           ),
         ),
@@ -60,7 +52,6 @@ class _LinkedinAuthState extends State<LinkedinAuth> {
     );
   }
 }
-
 
 class LinkedInProfileExamplePage extends StatefulWidget {
   const LinkedInProfileExamplePage({super.key});
@@ -85,16 +76,22 @@ class _LinkedInProfileExamplePageState
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (final BuildContext context) =>LinkedInUserWidget(
+                  builder: (final BuildContext context) => LinkedInUserWidget(
                     useVirtualDisplay: true,
                     redirectUrl: redirectUrl,
                     clientId: clientId,
                     clientSecret: clientSecret,
-                    onGetUserProfile:
-                        (UserSucceededAction linkedInUser) {
-                      print('Access token ${linkedInUser.user.token.accessToken}');
-                      print('First name: ${linkedInUser.user.firstName?.localized?.label}');
-                      print('Last name: ${linkedInUser.user.lastName?.localized?.label}');
+                    onGetUserProfile: (UserSucceededAction linkedInUser) {
+                      setState(() {
+
+                        // user = UserObject(
+                        //   // firstName: linkedInUser.user.firstName?.localized?.label ?? '',
+                        //   // lastName: linkedInUser.user.lastName?.localized?.label ?? '',
+                        //   // email: linkedInUser.user.email?.elements?.first.handleDeep?.emailAddress ?? '',
+                        //   // profileImageUrl: linkedInUser.user.profilePicture?.displayImageContent?.elements?.first.identifiers?.first.identifier ?? '',
+                        // );
+                      });
+                      Navigator.pop(context);
                     },
                     onError: (UserFailedAction e) {
                       print('Error: ${e.toString()}');
@@ -114,15 +111,17 @@ class _LinkedInProfileExamplePageState
             },
             buttonText: 'Logout',
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('First: ${user?.firstName} '),
-              Text('Last: ${user?.lastName} '),
-              Text('Email: ${user?.email}'),
-              Text('Profile image: ${user?.profileImageUrl}'),
-            ],
-          ),
+          if (user != null)
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('First: ${user?.firstName} '),
+                Text('Last: ${user?.lastName} '),
+                Text('Email: ${user?.email}'),
+                if (user?.profileImageUrl != null)
+                  Image.network(user!.profileImageUrl!),
+              ],
+            ),
         ],
       ),
     );
@@ -161,25 +160,20 @@ class _LinkedInAuthCodeExamplePageState
                   },
                   onGetAuthCode: (final AuthorizationSucceededAction response) {
                     print('Auth code ${response.codeResponse.code}');
-
                     print('State: ${response.codeResponse.state}');
 
-                    authorizationCode = AuthCodeObject(
-                      code: response.codeResponse.code,
-                      state: response.codeResponse.state,
-                    );
-                    setState(() {});
+                    setState(() {
+                      authorizationCode = AuthCodeObject(
+                        code: response.codeResponse.code,
+                        state: response.codeResponse.state,
+                      );
+                    });
 
                     Navigator.pop(context);
-
                   },
-                  scope: [
-                    LiteProfileScope(),
-                    EmailAddressScope()
-                  ],
+                  scope: [LiteProfileScope(), EmailAddressScope()],
                 ),
                 fullscreenDialog: true,
-
               ),
             );
           },

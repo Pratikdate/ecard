@@ -57,12 +57,12 @@ class _ActivityChartState extends State<ActivityChart> {
       plotAreaBorderWidth: 0,
       margin: EdgeInsets.zero,
       primaryXAxis: widget.isanalysis
-          ? NumericAxis(
-              majorGridLines: const MajorGridLines(
+          ? const NumericAxis(
+              majorGridLines: MajorGridLines(
                   width: 1, color: Colors.white24, dashArray: <double>[5, 5]),
               majorTickLines:
-                  const MajorTickLines(width: 0), // Little sticks on left side
-              axisLine: const AxisLine(
+                  MajorTickLines(width: 0), // Little sticks on left side
+              axisLine: AxisLine(
                   color: Colors.transparent, // Y left line
                   dashArray: <double>[5, 5]),
               minimum: 0,

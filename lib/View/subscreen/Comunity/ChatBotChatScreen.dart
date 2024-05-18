@@ -1,343 +1,183 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:bubble/bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:bubble/bubble.dart';
 
-import '../../../Model/snapshot_handler.dart';
+import '../../../Controller/ChatScreen/ChatController.dart';
 import '../../../Resource/color_handler.dart';
 import '../../../Resource/icon_handler.dart';
 
 
-class ChatScreenHandler extends StatefulWidget {
-  const ChatScreenHandler(
-      {super.key,
-        this.isComunityPage = true,
-        this.Uid = '',
-        this.FriendName = '',
-        this.ImgSrc = ''});
-  final isComunityPage;
-  final String Uid;
-  final String FriendName;
-  final String ImgSrc;
 
-  @override
-  State<ChatScreenHandler> createState() => _ChatScreenHandlerState();
-}
 
-class _ChatScreenHandlerState extends State<ChatScreenHandler> {
-  List<types.Message> _messages = [];
+
+
+
+class ChatController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  DateTime now = DateTime.now();
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  var messages = <types.Message>[].obs;
+  final user = types.User(id: FirebaseAuth.instance.currentUser!.uid).obs;
+  //User who get messages
 
+  late final String getUser;
+  ChatController(this.getUser);
+
+
+
+
+  DateTime now = DateTime.now();
   late DateTime date = DateTime(now.year, now.month, now.day);
 
-  late final _user = types.User(
-    id: auth.currentUser!.uid,
-  );
-
   @override
-  void initState() {
-    super.initState();
-    setState(() {
-      _loadMessages();
-    });
+  void onInit() {
+    super.onInit();
+    print("get user");
+    print(getUser);
+    loadMessages();
   }
 
-  void _loadMessages() async {
+  void loadMessages() async {
     var loadMessage;
     var sendMessage;
 
     try {
-      //load send messages
-      await FirebaseFirestore.instance
+      // Load sent messages
+      await firestore
           .collection('Messages')
-          .doc(widget.Uid)
+          .doc(getUser)
           .collection("messages")
           .doc(auth.currentUser?.uid)
           .collection(date.toString())
           .get()
           .then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((doc) {
+        for (var doc in querySnapshot.docs) {
           sendMessage = types.TextMessage(
-              author:
-              types.User.fromJson(doc['author'] as Map<String, dynamic>),
-              createdAt: doc["createdAt"],
-              id: doc["id"],
-              text: doc["text"],
-              metadata: doc["metadata"]);
-          setState(() {
-            _messages.add(sendMessage);
-          });
-        });
+            author: types.User.fromJson(doc['author'] as Map<String, dynamic>),
+            createdAt: doc["createdAt"],
+            id: doc["id"],
+            text: doc["text"],
+            //metadata: doc["metadata"]
+          );
+          print(sendMessage);
+          messages.add(sendMessage);
+        }
       });
-    } catch (e) {}
+    } catch (e) {
+      // Handle error
+    }
 
     try {
-      //load response  messages
-
-      await FirebaseFirestore.instance
+      // Load response messages
+      await firestore
           .collection('Messages')
           .doc(auth.currentUser?.uid)
           .collection("messages")
-          .doc(widget.Uid)
+          .doc(getUser)
           .collection(date.toString())
           .get()
           .then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((doc) {
+        for (var doc in querySnapshot.docs) {
           loadMessage = types.TextMessage(
-              author:
-              types.User.fromJson(doc['author'] as Map<String, dynamic>),
-              createdAt: doc["createdAt"],
-              id: doc["id"],
-              text: doc["text"],
-              metadata: doc["metadata"]);
-
-          setState(() {
-            _messages.add(loadMessage);
-          });
-        });
-      });
-    } catch (e) {}
-  }
-
-  void _addMessage(types.Message message) {
-    setState(() {
-      _messages.add(message);
-    });
-  }
-
-  void _handleAttachmentPressed() {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) => SafeArea(
-        child: Container(
-          color: ColorHandler.bgColor.withOpacity(0.8),
-          height: 144,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _handleImageSelection();
-                },
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text(
-                    'Photo',
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _handleFileSelection();
-                },
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text('File'),
-                ),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text('Cancel'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _handleFileSelection() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-    );
-
-    if (result != null && result.files.single.path != null) {
-      final message = types.FileMessage(
-        author: _user,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-        id: const Uuid().v4(),
-        mimeType: lookupMimeType(result.files.single.path!),
-        name: result.files.single.name,
-        size: result.files.single.size,
-        uri: result.files.single.path!,
-      );
-
-      _addMessage(message);
-    }
-  }
-
-  void _handleImageSelection() async {
-    final result = await ImagePicker().pickImage(
-      imageQuality: 70,
-      maxWidth: 1440,
-      source: ImageSource.gallery,
-    );
-
-    if (result != null) {
-      final bytes = await result.readAsBytes();
-      final image = await decodeImageFromList(bytes);
-
-      final message = types.ImageMessage(
-        author: _user,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-        height: image.height.toDouble(),
-        id: const Uuid().v4(),
-        name: result.name,
-        size: bytes.length,
-        uri: result.path,
-        width: image.width.toDouble(),
-      );
-
-      _addMessage(message);
-    }
-  }
-
-  void _handleMessageTap(BuildContext _, types.Message message) async {
-    if (message is types.FileMessage) {
-      var localPath = message.uri;
-
-      if (message.uri.startsWith('http')) {
-        try {
-          final index =
-          _messages.indexWhere((element) => element.id == message.id);
-          final updatedMessage =
-          (_messages[index] as types.FileMessage).copyWith(
-            isLoading: true,
+            author: types.User.fromJson(doc['author'] as Map<String, dynamic>),
+            createdAt: doc["createdAt"],
+            id: doc["id"],
+            text: doc["text"],
+            //metadata: doc["metadata"]
           );
-
-          setState(() {
-            _messages[index] = updatedMessage;
-          });
-
-          final client = http.Client();
-          final request = await client.get(Uri.parse(message.uri));
-          final bytes = request.bodyBytes;
-          final documentsDir = (await getApplicationDocumentsDirectory()).path;
-          localPath = '$documentsDir/${message.name}';
-
-          if (!File(localPath).existsSync()) {
-            final file = File(localPath);
-            await file.writeAsBytes(bytes);
-          }
-        } finally {
-          final index =
-          _messages.indexWhere((element) => element.id == message.id);
-          final updatedMessage =
-          (_messages[index] as types.FileMessage).copyWith(
-            isLoading: null,
-          );
-
-          setState(() {
-            _messages[index] = updatedMessage;
-          });
+          messages.add(loadMessage);
         }
-      }
-
-      await OpenFilex.open(localPath);
+      });
+    } catch (e) {
+      // Handle error
     }
   }
 
-  void _handlePreviewDataFetched(
-      types.TextMessage message,
-      types.PreviewData previewData,
-      ) {
-    final index = _messages.indexWhere((element) => element.id == message.id);
-    final updatedMessage = (_messages[index] as types.TextMessage).copyWith(
-      previewData: previewData,
-    );
-
-    setState(() {
-      _messages[index] = updatedMessage;
-    });
+  void addMessage(types.Message message) {
+    messages.add(message);
   }
 
-  void _handleSendPressed(types.PartialText message) {
+  void sendTextMessage(String text) {
     final textMessage = types.TextMessage(
-        author: _user,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-        id: const Uuid().v4(),
-        text: message.text,
-        metadata: message.metadata);
-
-    _addMessageToFirestore(textMessage);
+      author:user.value,
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      id: const Uuid().v4(),
+      text: text,
+    );
+    addMessageToFirestore(textMessage);
   }
 
-  void _addMessageToFirestore(types.TextMessage message) async {
+  void addMessageToFirestore(types.TextMessage message) async {
     final messageData = {
       "author": message.author.toJson(),
-      "metadata": message.metadata,
+      // "metadata": message.metadata,
       'text': message.text,
       'createdAt': message.createdAt,
       "id": message.id,
     };
 
-    await SnapShotHandler.SetData(
-        FirebaseFirestore.instance
-            .collection('Messages')
-            .doc(widget.Uid)
-            .collection("messages")
-            .doc(message.author.id)
-            .collection(date.toString())
-            .doc(message.id),
-        messageData);
-    _addMessage(message);
+    await firestore
+        .collection('Messages')
+        .doc(getUser)
+        .collection("messages")
+        .doc(message.author.id)
+        .collection(date.toString())
+        .doc(message.id)
+        .set(messageData);
+
+    addMessage(message);
   }
 
-  Widget _bubbleBuilder(
-      Widget child, {
-        required types.Message message,
-        required bool nextMessageInGroup,
-      }) =>
-      Bubble(
-          color: _user.id != message.author.id ||
-              message.type == types.MessageType.image
-              ? const Color(0xffa29ae1) // Color for other user's messages
-              : const Color(0xff6f61e8), // Color for current user's messages
-          margin: nextMessageInGroup
-              ? const BubbleEdges.symmetric(horizontal: 6)
-              : null,
-          nip: nextMessageInGroup
-              ? BubbleNip.no
-              : _user.id != message.author.id
-              ? BubbleNip.leftTop
-              : BubbleNip.rightTop,
-          alignment: _user.id != message.author
-              ? Alignment.bottomRight
-              : Alignment.bottomLeft,
-          padding: const BubbleEdges.all(8), // Padding for the bubble
-          radius: const Radius.circular(20), // Border radius for the bubble
-          nipWidth: 8, // Width of the arrow
-          nipHeight: 16, // Height of the arrow
-          nipRadius: 2, // Radius of the arrow
-          elevation: 100,
-          nipOffset: 2,
-          borderUp: true,
-          child: child);
+  void updateMessage(int index, types.Message updatedMessage) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ChatScreenHandler extends StatelessWidget {
+  const ChatScreenHandler({
+    super.key,
+    this.isComunityPage = true,
+    this.Uid = '',
+    this.FriendName = '',
+    this.ImgSrc = '',
+  });
+
+  final bool isComunityPage;
+  final String Uid;
+  final String FriendName;
+  final String ImgSrc;
 
   @override
   Widget build(BuildContext context) {
+
+    final ChatController controller = Get.put(ChatController(Uid),tag: Uid);
+
+
     return Scaffold(
-      appBar: widget.isComunityPage
+      appBar: isComunityPage
           ? AppBar(
         centerTitle: true,
         backgroundColor: ColorHandler.bgColor,
@@ -358,7 +198,7 @@ class _ChatScreenHandlerState extends State<ChatScreenHandler> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(100.sp),
                 child: Image.network(
-                  widget.ImgSrc,
+                  ImgSrc,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -367,7 +207,7 @@ class _ChatScreenHandlerState extends State<ChatScreenHandler> {
               width: 10,
             ),
             Text(
-              widget.FriendName,
+              FriendName,
               style: TextStyle(
                 color: ColorHandler.normalFont,
                 fontWeight: FontWeight.normal,
@@ -380,32 +220,211 @@ class _ChatScreenHandlerState extends State<ChatScreenHandler> {
         ),
       )
           : null,
-      body: Chat(
-        messages: _messages,
-        bubbleBuilder: _bubbleBuilder,
-        onAttachmentPressed: _handleAttachmentPressed,
-        onMessageTap: _handleMessageTap,
-        onPreviewDataFetched: _handlePreviewDataFetched,
-        onSendPressed: _handleSendPressed,
-        scrollToUnreadOptions: const ScrollToUnreadOptions(
-          lastReadMessageId: 'lastReadMessageId',
-          scrollOnOpen: true,
-        ),
-        showUserAvatars: false, // Hide user avatars
-        showUserNames: false, // Hide user names
-        isLeftStatus: true, // Show status on the left side
-        user: _user,
-        theme: const DefaultChatTheme(
-          backgroundColor: ColorHandler.bgColor,
-          seenIcon: Text(
-            'read',
-            style: TextStyle(
-              fontSize: 10.0,
+      body: Obx(
+            () => Chat(
+          messages: controller.messages.reversed.toList(),
+          bubbleBuilder: _bubbleBuilder,
+          onAttachmentPressed: () =>
+              _handleAttachmentPressed(context, controller),
+          onMessageTap: _handleMessageTap,
+          onPreviewDataFetched: _handlePreviewDataFetched,
+          onSendPressed: (types.PartialText message) =>
+              controller.sendTextMessage(message.text),
+          scrollToUnreadOptions: const ScrollToUnreadOptions(
+            lastReadMessageId: 'lastReadMessageId',
+            scrollOnOpen: true,
+          ),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          showUserAvatars: false,
+          showUserNames: false,
+          isLeftStatus: true,
+          user: controller.user.value,
+          theme: const DefaultChatTheme(
+            backgroundColor: ColorHandler.bgColor,
+            seenIcon: Text(
+              'read',
+              style: TextStyle(
+                fontSize: 10.0,
+              ),
             ),
           ),
+          messageWidthRatio: 0.80,
         ),
-        messageWidthRatio: 0.80,
       ),
     );
   }
+
+  void _handleAttachmentPressed(BuildContext context,
+      ChatController controller) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) =>
+          SafeArea(
+            child: Container(
+              color: ColorHandler.bgColor.withOpacity(0.8),
+              height: 144,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _handleImageSelection(controller);
+                    },
+                    child: const Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text('Photo'),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _handleFileSelection(controller);
+                    },
+                    child: const Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text('File'),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text('Cancel'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+    );
+  }
+
+  void _handleFileSelection(ChatController controller) async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.any,
+    );
+
+    if (result != null && result.files.single.path != null) {
+      final message = types.FileMessage(
+        author: controller.user.value,
+        createdAt: DateTime
+            .now()
+            .millisecondsSinceEpoch,
+        id: const Uuid().v4(),
+        mimeType: lookupMimeType(result.files.single.path!),
+        name: result.files.single.name,
+        size: result.files.single.size,
+        uri: result.files.single.path!,
+      );
+
+      controller.addMessage(message);
+    }
+  }
+
+  void _handleImageSelection(ChatController controller) async {
+    final result = await ImagePicker().pickImage(
+      imageQuality: 70,
+      maxWidth: 1440,
+      source: ImageSource.gallery,
+    );
+
+    if (result != null) {
+      final bytes = await result.readAsBytes();
+      final image = await decodeImageFromList(bytes);
+
+      final message = types.ImageMessage(
+        author: controller.user.value,
+        createdAt: DateTime
+            .now()
+            .millisecondsSinceEpoch,
+        height: image.height.toDouble(),
+        id: const Uuid().v4(),
+        name: result.name,
+        size: bytes.length,
+        uri: result.path,
+        width: image.width.toDouble(),
+      );
+
+      controller.addMessage(message);
+    }
+  }
+
+  void _handleMessageTap(BuildContext _, types.Message message) async {
+    final ChatController controller = Get.find<ChatController>();
+    if (message is types.FileMessage) {
+      var localPath = message.uri;
+
+      if (message.uri.startsWith('http')) {
+        try {
+          final index = controller.messages.indexWhere((element) =>
+          element.id == message.id);
+          final updatedMessage = (controller.messages[index] as types
+              .FileMessage).copyWith(isLoading: true);
+
+          controller.updateMessage(index, updatedMessage);
+
+          final client = http.Client();
+          final request = await client.get(Uri.parse(message.uri));
+          final bytes = request.bodyBytes;
+          final documentsDir = (await getApplicationDocumentsDirectory()).path;
+          localPath = '$documentsDir/${message.name}';
+
+          // if (!File(localPath).existsSync()) {
+          //   final file = File(localPath);
+          //   await file.writeAsBytes(bytes);
+          // }
+        } finally {
+          final index = controller.messages.indexWhere((element) =>
+          element.id == message.id);
+          final updatedMessage = (controller.messages[index] as types
+              .FileMessage).copyWith(isLoading: null);
+
+          controller.updateMessage(index, updatedMessage);
+        }
+      }
+
+      await OpenFilex.open(localPath);
+    }
+  }
+
+  void _handlePreviewDataFetched(types.TextMessage message,
+      types.PreviewData previewData) {
+    final ChatController controller = Get.find<ChatController>();
+
+    final index = controller.messages.indexWhere((element) =>
+    element.id == message.id);
+
+    final updatedMessage = (controller.messages[index] as types.TextMessage)
+        .copyWith(previewData: previewData);
+
+    controller.updateMessage(index, updatedMessage);
+  }
+
+  Widget _bubbleBuilder(Widget child,
+      {required types.Message message, required bool nextMessageInGroup}) {
+    final ChatController controller = Get.put(ChatController(Uid),tag: Uid);
+
+    return Bubble(
+      color: controller.user.value.id != message.author.id ||
+          message.type == types.MessageType.image
+          ? const Color(0xffa29ae1)
+          : const Color(0xff6f61e8),
+      margin: nextMessageInGroup
+          ? const BubbleEdges.symmetric(horizontal: 0)
+          : null,
+      nip: nextMessageInGroup
+          ? BubbleNip.no
+          : controller.user.value.id != message.author.id
+          ? BubbleNip.leftTop
+          : BubbleNip.rightTop,
+      alignment: controller.user != message.author
+          ?  Alignment.bottomLeft
+          :Alignment.bottomRight,
+      padding: const BubbleEdges.all(8), // Padding for the bubble
+      radius: const Radius.circular(20),
+      child: child,
+    );
+  }
+
 }

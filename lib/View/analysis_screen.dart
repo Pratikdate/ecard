@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../Controller/Analysis/TodayReportController.dart';
 import '../Resource/color_handler.dart';
 import '../Resource/font-handler.dart';
 import 'LayoutScreens/AnalyticspageLayout/TodaysReportLayout.dart';
@@ -12,48 +15,110 @@ import 'chart_screens/activty_chart.dart';
 
 
 class AnalysisScreen extends StatelessWidget {
-  const AnalysisScreen({Key? key}) : super(key: key);
+   AnalysisScreen({Key? key}) : super(key: key);
+
+  final TodayReportController controller = TodayReportController();
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 50.r,
+        toolbarHeight: 20.r,
         leadingWidth: MediaQuery.of(context).size.width,
         backgroundColor: ColorHandler.bgColor,
       ),
       backgroundColor: ColorHandler.bgColor,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const UserStats(),
-            SizedBox(height: 8.r),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 345.r,
+      body: Stack(
+        children:[
+
+          SizedBox(
+            height: Get.height-40,
+            child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.0.sp),
-                    child: FontHandler(
-                      "Engagement Rate",
-                      color: ColorHandler.normalFont,
-                      textAlign: TextAlign.start,
-                      fontsize: 22.sp,
-                      fontweight: FontWeight.bold,
-                    ),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const UserStats(),
+                SizedBox(height: 8.r),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 345.r,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.0.sp),
+                        child: FontHandler(
+                          "Engagement Rate",
+                          color: ColorHandler.normalFont,
+                          textAlign: TextAlign.start,
+                          fontsize: 22.sp,
+                          fontweight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 12.r),
+                      ActivityChart(isanalysis: true, engagementRate: 10,),
+                    ],
                   ),
-                  SizedBox(height: 14.r),
-                  ActivityChart(isanalysis: true, engagementRate: 10,),
-                ],
+                ),
+
+              ],
+
+                      ),
+            ),
+          ),
+      Positioned(
+        bottom: 0,
+        child: Obx(
+              ()=>Container(
+
+          height: controller.height.value,
+          decoration: const ShapeDecoration(
+            color: ColorHandler.yellow,
+
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+               top: Radius.circular(30),
               ),
             ),
-            SizedBox(height: 14.r),
-            const TodaysReportLayout(),
-          ],
+          ) ,
+
+            width: 1.sw,
+            child : Wrap(
+
+                children: [
+                  Center(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorHandler.normalFont,
+                          minimumSize: Size(4.sp, 4.sp),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.sp),
+                          ),
+                        ),
+                      onPressed: (){
+                          if(controller.height.value<=125.r){
+                            controller.height.value=235.r;
+                          }
+                          else{
+                            controller.height.value=125.r;
+                          }
+                        },
+
+                        child: const SizedBox(
+                          height: 2,
+                          width: 28,
+                        )
+                    ),
+                  ),
+
+                   const TodaysReportLayout(),
+            ]
+          )
         ),
+        )
+      )
+      ]
       ),
     );
   }

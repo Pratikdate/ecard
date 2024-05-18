@@ -1,18 +1,25 @@
-import 'dart:ffi';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
+
+
+
+
 
 class ChatController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final messages = <types.Message>[].obs;
-  final _user = types.User(id: FirebaseAuth.instance.currentUser!.uid);
-  types.User get user=>_user;
+  var messages = <types.Message>[].obs;
+  final user = types.User(id: FirebaseAuth.instance.currentUser!.uid).obs;
+  //User who get messages
+
+  late final String getUser;
+  ChatController(this.getUser);
+
+
+
 
   DateTime now = DateTime.now();
   late DateTime date = DateTime(now.year, now.month, now.day);
@@ -20,6 +27,7 @@ class ChatController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
     loadMessages();
   }
 
@@ -31,7 +39,7 @@ class ChatController extends GetxController {
       // Load sent messages
       await firestore
           .collection('Messages')
-          .doc(auth.currentUser?.uid)
+          .doc(getUser)
           .collection("messages")
           .doc(auth.currentUser?.uid)
           .collection(date.toString())
@@ -43,7 +51,9 @@ class ChatController extends GetxController {
               createdAt: doc["createdAt"],
               id: doc["id"],
               text: doc["text"],
-              metadata: doc["metadata"]);
+              //metadata: doc["metadata"]
+          );
+
           messages.add(sendMessage);
         }
       });
@@ -57,7 +67,7 @@ class ChatController extends GetxController {
           .collection('Messages')
           .doc(auth.currentUser?.uid)
           .collection("messages")
-          .doc(auth.currentUser?.uid)
+          .doc(getUser)
           .collection(date.toString())
           .get()
           .then((QuerySnapshot querySnapshot) {
@@ -67,7 +77,8 @@ class ChatController extends GetxController {
               createdAt: doc["createdAt"],
               id: doc["id"],
               text: doc["text"],
-              metadata: doc["metadata"]);
+              //metadata: doc["metadata"]
+          );
           messages.add(loadMessage);
         }
       });
@@ -82,7 +93,7 @@ class ChatController extends GetxController {
 
   void sendTextMessage(String text) {
     final textMessage = types.TextMessage(
-      author:user,
+      author:user.value,
       createdAt: DateTime.now().millisecondsSinceEpoch,
       id: const Uuid().v4(),
       text: text,
@@ -93,7 +104,7 @@ class ChatController extends GetxController {
   void addMessageToFirestore(types.TextMessage message) async {
     final messageData = {
       "author": message.author.toJson(),
-      "metadata": message.metadata,
+     // "metadata": message.metadata,
       'text': message.text,
       'createdAt': message.createdAt,
       "id": message.id,
@@ -101,7 +112,7 @@ class ChatController extends GetxController {
 
     await firestore
         .collection('Messages')
-        .doc(auth.currentUser?.uid)
+        .doc(getUser)
         .collection("messages")
         .doc(message.author.id)
         .collection(date.toString())

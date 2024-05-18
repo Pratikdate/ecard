@@ -7,6 +7,7 @@
         tools:ignore="WrongManifestParent" />
 
 
+
     <application
         android:label="monitor"
         android:name="${applicationName}"
@@ -49,9 +50,12 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="example"
-                    android:host="gizmos" />
+                <!-- Accepts URIs that begin with "example://gizmos” -->
+                <!-- Registered Callback URLs in TwitterApp -->
+                <data android:scheme="com.example.ecard://"
+                    android:host="gizmos" /> <!-- host is option -->
             </intent-filter>
+
         </activity>
         <activity android:name="com.android.camera.CropImage"
             tools:ignore="MissingClass" />
