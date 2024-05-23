@@ -13,17 +13,19 @@ import 'View/subscreen/authenticat/login.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   runApp(
-    Phoenix(
-      child: DevicePreview(
-        enabled: true,
-        tools: const [
-          ...DevicePreview.defaultTools,
-        ],
-        builder: (BuildContext context) => MyApp(),
-      ),
-    ),
+
+    //Use when you want to work on design
+
+    //         DevicePreview(
+    //       enabled: true,
+    //       tools: const [
+    //         ...DevicePreview.defaultTools,
+    //       ],
+    //       builder: (BuildContext context) => MyApp(),
+    //     )
+    // );
+      Phoenix(child: MyApp())
   );
 }
 
@@ -34,18 +36,12 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 640),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) {
+      builder: (_, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: "Your Brand, Your Power",
+          title: "Your Brand , Your Power",
           theme: ThemeData(
             primarySwatch: Colors.grey,
-            // Define your own color scheme if needed
-            // colorScheme: ColorScheme.fromSwatch(
-            //   primarySwatch: Colors.grey,
-            // ).copyWith(
-            //   secondary: accentColor,
-            // ),
           ),
           initialRoute: FirebaseAuth.instance.currentUser == null
               ? LoginScreen.routeName
