@@ -1,0 +1,1 @@
+ C:\\flutter\ learning\\gssoc\\ecard\\ecard\\.dart_tool\\flutter_build\\25eacd070d2061d7fb51c7e42f62fd9e\\native_assets.yaml: 
