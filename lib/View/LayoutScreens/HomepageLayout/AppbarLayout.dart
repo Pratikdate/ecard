@@ -26,13 +26,16 @@ class _AppbarLayoutState extends State<AppbarLayout> {
               MaterialPageRoute(builder: (context) => const HomeScreen()),
             );
           },
-          icon: const Icon(
-            IconHandler.notification,
-            color: CupertinoColors.systemGrey,
+          icon: const Padding(
+            padding: EdgeInsets.only(right: 10.0),
+            child: Icon(
+              IconHandler.notification,
+              color: CupertinoColors.systemGrey,
+            ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 20),
+          padding: const EdgeInsets.only(right: 10),
           child: IconButton(
             onPressed: () {
               // Show search bar
@@ -45,6 +48,43 @@ class _AppbarLayoutState extends State<AppbarLayout> {
               IconHandler.search,
               color: CupertinoColors.systemGrey,
             ),
+          ),
+        ),
+        // Kebab menu
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: PopupMenuButton<String>(
+            icon: const Icon(Icons.more_vert,
+                color:
+                    CupertinoColors.systemGrey), // Set the icon color to white
+            onSelected: (String result) {
+              // Handle your menu choice here
+              switch (result) {
+                case 'Create Post':
+                  // Handle create post action
+                  break;
+                case 'Update Post':
+                  // Handle update post action
+                  break;
+                case 'Delete Post':
+                  // Handle delete post action
+                  break;
+              }
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'Create Post',
+                child: Text('Create Post'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'Update Post',
+                child: Text('Update Post'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'Delete Post',
+                child: Text('Delete Post'),
+              ),
+            ],
           ),
         ),
       ],
