@@ -1,3 +1,4 @@
+import 'package:Monitor/Resource/color_handler.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -74,12 +75,15 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Container(); // Implement suggestions if needed
+    return Container(
+      color: ColorHandler.bgColor,
+    ); // Implement suggestions if needed
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
+      color: ColorHandler.bgColor,
       onPressed: () {
         close(context, null);
       },
@@ -91,6 +95,7 @@ class CustomSearchDelegate extends SearchDelegate {
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
+        color: ColorHandler.bgColor,
         onPressed: () {
           query = '';
         },

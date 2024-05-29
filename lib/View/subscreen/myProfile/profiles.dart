@@ -1,7 +1,12 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:get/get.dart';
+import 'package:twitter_login/twitter_login.dart';
+import '../../../Controller/Profile/ProfileController.dart';
 import '../../../Resource/color_handler.dart';
 import '../../../Resource/font-handler.dart';
 import '../../../Resource/icon_handler.dart';
@@ -17,6 +22,8 @@ class UserProfilesScreen extends StatefulWidget {
 }
 
 class _UserProfilesScreenState extends State<UserProfilesScreen> {
+
+  ProfileController controller=Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
       return Scaffold(
@@ -51,7 +58,24 @@ class _UserProfilesScreenState extends State<UserProfilesScreen> {
             child: Column(
               children: [
                 PlatformProfile(title: "Linkedin", iconh: IconHandler.linkedin,onPressed:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=>LinkedinAuth()), );},),
-                PlatformProfile(title: "Twitter", iconh: IconHandler.twitter,onPressed:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=>TwitterAuth()),);},),
+                PlatformProfile(title: "Twitter", iconh: IconHandler.twitter,onPressed:() async {
+
+                  try{
+                    TwitterAuthProvider twitterProvider = TwitterAuthProvider();
+
+                    if (kIsWeb) {
+                      await FirebaseAuth.instance.signInWithPopup(twitterProvider);
+                    } else {
+                      await FirebaseAuth.instance.signInWithProvider(twitterProvider);
+                    }
+
+
+                  }catch(e){
+
+                  }
+
+
+                }),
                 PlatformProfile(title: "FaceBook", iconh: IconHandler.facebook,onPressed:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=>LinkedinAuth()), );},),
                 PlatformProfile(title: "Pinterest", iconh: IconHandler.pinterest,onPressed:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=>LinkedinAuth()), );},),
               ],
