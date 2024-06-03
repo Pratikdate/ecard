@@ -75,7 +75,7 @@ Help us build Svanugrahaka even better! We thrive on community contributions. He
 
 <img src="https://imgur.com/wuiJXqr.png"/>
 *Thank you for being a part of the monitor project.*
-
+* see you again*
 *And don't forget to give a star to repo*
 
 *For more information, join monitor discord server* [monitor server](https://discord.gg/JK4qnXSZ)
