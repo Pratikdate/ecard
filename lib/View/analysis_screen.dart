@@ -24,7 +24,7 @@ class AnalysisScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 20.r,
+        toolbarHeight: 24.r,
         leadingWidth: MediaQuery.of(context).size.width,
         backgroundColor: ColorHandler.bgColor,
       ),
@@ -73,8 +73,22 @@ class AnalysisScreen extends StatelessWidget {
               ()=>Container(
 
           height: controller.height.value,
-          decoration: const ShapeDecoration(
-            color: ColorHandler.yellow,
+          decoration:  ShapeDecoration(
+            //color: ColorHandler.bgColor,
+            //
+            shadows: [
+              BoxShadow(
+              color: ColorHandler.normalFont.withOpacity(0.2),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 1), // changes position of shadow
+            ),
+          BoxShadow(
+            color:  ColorHandler.bgColor.withOpacity(0.8),
+            // spreadRadius: 5,
+            // blurRadius: 7,
+            //offset: Offset(0, 3), // changes position of shadow
+          ),],
 
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(

@@ -221,9 +221,7 @@ class ChatScreenHandler extends StatelessWidget {
       )
           : null,
       body: Obx(
-            () =>controller.messages.isEmpty
-                ? Center(child: CircularProgressIndicator())
-                : Chat(
+            () =>Chat(
           messages: controller.messages.reversed.toList(),
           bubbleBuilder: _bubbleBuilder,
           onAttachmentPressed: () =>

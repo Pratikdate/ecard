@@ -8,6 +8,7 @@ class ProfileController extends GetxController {
 
   var userProfile = Rxn<DocumentSnapshot>();
 
+
   @override
   void onInit() {
     super.onInit();

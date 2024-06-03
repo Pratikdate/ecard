@@ -60,7 +60,7 @@ class _TwitterAuthState extends State<TwitterAuth> {
     final twitterLogin = TwitterLogin(
       apiKey: apiKey,
       apiSecretKey: apiSecretKey,
-      redirectURI: 'com.example.ecard://',
+      redirectURI: 'https://personalbrand-a789e.firebaseapp.com/__/auth/handler',
     );
 
     final authResult = await twitterLogin.loginV2();
