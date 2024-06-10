@@ -15,16 +15,16 @@ void main() async {
   await Firebase.initializeApp();
   runApp(
 
-      //Use when you want to work on design
+    //Use when you want to work on design
 
-  //         DevicePreview(
-  //       enabled: true,
-  //       tools: const [
-  //         ...DevicePreview.defaultTools,
-  //       ],
-  //       builder: (BuildContext context) => MyApp(),
-  //     )
-  // );
+    //         DevicePreview(
+    //       enabled: true,
+    //       tools: const [
+    //         ...DevicePreview.defaultTools,
+    //       ],
+    //       builder: (BuildContext context) => MyApp(),
+    //     )
+    // );
       Phoenix(child: MyApp())
   );
 }
@@ -55,4 +55,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

@@ -9,7 +9,7 @@
 
 
     <application
-        android:label="monitor"
+        android:label="Monitor"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
