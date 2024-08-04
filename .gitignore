@@ -25,9 +25,12 @@ output.json
 
 # Google Services (e.g. APIs or Firebase)
 google-services.json
+firebase.json
+firebase_options.dart
 
 # Android Profiling
 *.hprof
 
-
-
+#Flutter Plugins
+flutter-plugins
+flutter-plugins-dependencies
